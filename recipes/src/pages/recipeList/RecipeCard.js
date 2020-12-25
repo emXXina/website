@@ -11,7 +11,9 @@ import Card, {
   CardActionIcons
 } from "@material/react-card";
 
-import Button from '@material-ui/core/Button';
+import { Button, IconButton } from '@material-ui/core/';
+import ShareIcon from '@material-ui/icons/Share';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 class RecipeCard extends React.Component {
     constructor(props) {
@@ -45,11 +47,18 @@ class RecipeCard extends React.Component {
 
                 <CardActions>
                     <CardActionButtons>
-                    <Button>Ansehen</Button>
-                    <Button>Los geht's!</Button>
-                    <Button>Liken</Button>
-                    <Button>Teilen</Button>
+                        <Button>Ansehen</Button>
+                        <Button>Los geht's!</Button>
                     </CardActionButtons>
+                    
+                    <CardActionIcons>
+                        <IconButton>
+                            <FavoriteBorderIcon/>
+                        </IconButton>
+                        <IconButton>
+                            <ShareIcon/>
+                        </IconButton>
+                    </CardActionIcons>
                 </CardActions>
             </Card>
             </div>
