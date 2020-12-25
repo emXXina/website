@@ -50,10 +50,11 @@ class RecipeCard extends React.Component {
 
                 <CardActions className="card__actions">
                     <div>
-                        <Button color="secondary" variant="outlined">
+                        <Button color="primary" variant="outlined">
                             Rezept
                         </Button>
                         <IconButton
+                            aria-label="Rezept starten"
                             onMouseEnter = {this.handleTogglePlay}
                             onMouseLeave = {this.handleTogglePlay}
                         >
@@ -61,10 +62,10 @@ class RecipeCard extends React.Component {
                         </IconButton>  
                     </div>     
                     <div>
-                        <IconButton>
+                        <IconButton aria-label="Teilen">
                             <ShareIcon/>
                         </IconButton>
-                        <IconButton>
+                        <IconButton aria-label="Liken">
                             <FavoriteIcon/>
                         </IconButton>   
                     </div>
