@@ -17,7 +17,7 @@ class RecipeList extends React.Component {
 
     render() {
         return(
-            <GridList cellHeight="auto" cols="4" spacing="40">
+            <GridList cellHeight="auto" cols={4} spacing={40}>
                 {this.recipeCards.map((recipeCard) => (
                     <GridListTile key={recipeCard.key}>
                         {recipeCard}
