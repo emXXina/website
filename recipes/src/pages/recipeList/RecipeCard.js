@@ -9,7 +9,6 @@ import { Button, IconButton } from '@material-ui/core/';
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-import FindInPageIcon from '@material-ui/icons/FindInPage';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
@@ -49,22 +48,26 @@ class RecipeCard extends React.Component {
                     </CardContent>
                 </CardActionArea>
 
-                <CardActions>
-                    <IconButton
-                        onMouseEnter = {this.handleTogglePlay}
-                        onMouseLeave = {this.handleTogglePlay}
-                    >
-                    {this.state.hoverPlay ? <PlayCircleFilledIcon /> : <PlayCircleOutlineIcon />}
-                    </IconButton>    
-                    <IconButton>
-                        <FindInPageIcon/>
-                    </IconButton>            
-                    <IconButton>
-                        <ShareIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <FavoriteIcon/>
-                    </IconButton>
+                <CardActions className="card__actions">
+                    <div>
+                        <Button color="secondary" variant="outlined">
+                            Rezept
+                        </Button>
+                        <IconButton
+                            onMouseEnter = {this.handleTogglePlay}
+                            onMouseLeave = {this.handleTogglePlay}
+                        >
+                            {this.state.hoverPlay ? <PlayCircleFilledIcon /> : <PlayCircleOutlineIcon />}
+                        </IconButton>  
+                    </div>     
+                    <div>
+                        <IconButton>
+                            <ShareIcon/>
+                        </IconButton>
+                        <IconButton>
+                            <FavoriteIcon/>
+                        </IconButton>   
+                    </div>
                 </CardActions>
             </Card>
         );
