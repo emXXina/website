@@ -2,6 +2,9 @@ import React from 'react';
 import RecipeCard from './RecipeCard';
 import './recipelist.scss';
 
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+
 class RecipeList extends React.Component {
     constructor(props) {
         super(props);
@@ -14,9 +17,13 @@ class RecipeList extends React.Component {
 
     render() {
         return(
-            <div class="list">
-                {this.recipeCards}
-            </div>
+            <GridList cellHeight="auto" cols="4" spacing="40">
+                {this.recipeCards.map((recipeCard) => (
+                    <GridListTile>
+                        {recipeCard}
+                    </GridListTile>
+                ))}
+            </GridList>
         );
     }
 }

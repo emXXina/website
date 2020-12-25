@@ -34,7 +34,6 @@ class RecipeCard extends React.Component {
 
     render() {
         return(
-            <div style={{width: "300px", height: "100px"}}>
             <Card>
                 <CardPrimaryContent>
                     <h1>{this.title}</h1>
@@ -61,7 +60,6 @@ class RecipeCard extends React.Component {
                     </CardActionIcons>
                 </CardActions>
             </Card>
-            </div>
         );
     }
 }

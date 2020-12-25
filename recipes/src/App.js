@@ -34,6 +34,18 @@ function getRecipes() {
   const recipe4 = new RecipeDescription("Titel4", "Labels", "Beschreibung");
   recipes.push(recipe4);
 
+  const recipe5 = new RecipeDescription("Titel1", "Labels", "Beschreibung");
+  recipes.push(recipe5);
+
+  const recipe6 = new RecipeDescription("Titel2", "Labels", "Beschreibung");
+  recipes.push(recipe6);
+
+  const recipe7 = new RecipeDescription("Titel3", "Labels", "Beschreibung");
+  recipes.push(recipe7);
+
+  const recipe8 = new RecipeDescription("Titel4", "Labels", "Beschreibung");
+  recipes.push(recipe8);
+
   return recipes;
 }
 
