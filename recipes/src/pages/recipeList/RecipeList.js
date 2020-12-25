@@ -11,7 +11,7 @@ class RecipeList extends React.Component {
 
         this.recipeCards = [];
         if (this.props.recipes != null) {
-            this.recipeCards = this.props.recipes.map((recipe) => <RecipeCard title={recipe.title} labels={recipe.labels} description={recipe.description} />);
+            this.recipeCards = this.props.recipes.map((recipe) => <RecipeCard key={recipe.id} title={recipe.title} labels={recipe.labels} description={recipe.description} />);
         }
     }
 
@@ -19,7 +19,7 @@ class RecipeList extends React.Component {
         return(
             <GridList cellHeight="auto" cols="4" spacing="40">
                 {this.recipeCards.map((recipeCard) => (
-                    <GridListTile>
+                    <GridListTile key={recipeCard.key}>
                         {recipeCard}
                     </GridListTile>
                 ))}

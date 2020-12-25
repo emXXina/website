@@ -22,28 +22,28 @@ function App() {
 function getRecipes() {
   let recipes = [];
 
-  const recipe1 = new RecipeDescription("Titel1", "Labels", "Beschreibung");
+  const recipe1 = new RecipeDescription("Titel1", "Labels", "Beschreibung", "123");
   recipes.push(recipe1);
 
-  const recipe2 = new RecipeDescription("Titel2", "Labels", "Beschreibung");
+  const recipe2 = new RecipeDescription("Titel2", "Labels", "Beschreibung", "2");
   recipes.push(recipe2);
 
-  const recipe3 = new RecipeDescription("Titel3", "Labels", "Beschreibung");
+  const recipe3 = new RecipeDescription("Titel3", "Labels", "Beschreibung", "3");
   recipes.push(recipe3);
 
-  const recipe4 = new RecipeDescription("Titel4", "Labels", "Beschreibung");
+  const recipe4 = new RecipeDescription("Titel4", "Labels", "Beschreibung", "5");
   recipes.push(recipe4);
 
-  const recipe5 = new RecipeDescription("Titel1", "Labels", "Beschreibung");
+  const recipe5 = new RecipeDescription("Titel1", "Labels", "Beschreibung", "32");
   recipes.push(recipe5);
 
-  const recipe6 = new RecipeDescription("Titel2", "Labels", "Beschreibung");
+  const recipe6 = new RecipeDescription("Titel2", "Labels", "Beschreibung", "22");
   recipes.push(recipe6);
 
-  const recipe7 = new RecipeDescription("Titel3", "Labels", "Beschreibung");
+  const recipe7 = new RecipeDescription("Titel3", "Labels", "Beschreibung", "11");
   recipes.push(recipe7);
 
-  const recipe8 = new RecipeDescription("Titel4", "Labels", "Beschreibung");
+  const recipe8 = new RecipeDescription("Titel4", "Labels", "Beschreibung", "9");
   recipes.push(recipe8);
 
   return recipes;
