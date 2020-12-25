@@ -1,0 +1,18 @@
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar__subbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.toolbar img {
+    width: 70px;
+    height: 70px;
+    margin-right: 1.5rem;
+}

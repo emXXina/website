@@ -4,19 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-// Set color theme for material ui
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#af6226',
-    },
-    secondary: {
-      main: '#91cf40',
-    },
-  },
-});
+import theme from './theme.js';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
 
 ReactDOM.render(
