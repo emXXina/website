@@ -26,7 +26,7 @@ class MyNavBar extends React.Component {
     handleScroll(event) {
         let scrollTop = window.scrollY;
 
-        if (scrollTop > 100) {
+        if (scrollTop > 70) {
             this.setState({ small: true });
             document.getElementById("toolbar").style.margin = "0 0";    
         } else {
