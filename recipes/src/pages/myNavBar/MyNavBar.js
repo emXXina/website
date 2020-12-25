@@ -14,8 +14,10 @@ class MyNavBar extends React.Component {
                 <Toolbar className="toolbar">
                     <div className="toolbar__subbar">
                         <img src={logo} alt="Logo"/>
-                        <h1>Rezepte</h1>
+                        <h4>finnupa.de</h4>
                     </div>
+
+                    <h1>Rezepte</h1>
 
                     <div className="toolbar__subbar">
                         <IconButton color="inherit">
