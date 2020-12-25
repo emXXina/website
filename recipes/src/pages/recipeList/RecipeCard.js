@@ -1,21 +1,23 @@
 import React from 'react';
 
 import '@material/react-card/dist/card.css';
+import "./recipecard.scss";
 import defaultImg from './default.jpg';
 
-import Card, {
-  CardPrimaryContent,
-  CardMedia,
-  CardActions,
-  CardActionButtons,
-  CardActionIcons
-} from "@material/react-card";
-
+import { Card, CardHeader, CardMedia, CardContent, CardActionArea, CardActions} from '@material-ui/core';
 import { Button, IconButton } from '@material-ui/core/';
 import ShareIcon from '@material-ui/icons/Share';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+
+import FindInPageIcon from '@material-ui/icons/FindInPage';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
 class RecipeCard extends React.Component {
+    state = {
+        hoverPlay: false
+    };
+
     constructor(props) {
         super(props);
         
@@ -30,34 +32,39 @@ class RecipeCard extends React.Component {
 
         this.description = "";
         (this.props.description == null) ? this.description = "Keine Beschreibung" : this.description = this.props.description;
+    
+        this.handleTogglePlay = this.handleTogglePlay.bind(this);
     }
+
+    handleTogglePlay = () => this.setState({ hoverPlay: !this.state.hoverPlay });
 
     render() {
         return(
-            <Card>
-                <CardPrimaryContent>
-                    <h1>{this.title}</h1>
-                    <h2>{this.labels}</h2>
-                    <CardMedia square imageUrl={this.img} />
-                    <p>
-                        {this.description}
-                    </p>
-                </CardPrimaryContent>
+            <Card variant="outlined" >
+                <CardActionArea>
+                    <CardHeader title={this.title} subheader={this.labels}/>
+                    <CardMedia image={this.img} title="Test" className="media" />
+                    <CardContent>
+                        <p>{this.description}</p>
+                    </CardContent>
+                </CardActionArea>
 
                 <CardActions>
-                    <CardActionButtons>
-                        <Button>Ansehen</Button>
-                        <Button>Los geht's!</Button>
-                    </CardActionButtons>
-                    
-                    <CardActionIcons>
-                        <IconButton>
-                            <FavoriteBorderIcon/>
-                        </IconButton>
-                        <IconButton>
-                            <ShareIcon/>
-                        </IconButton>
-                    </CardActionIcons>
+                    <IconButton
+                        onMouseEnter = {this.handleTogglePlay}
+                        onMouseLeave = {this.handleTogglePlay}
+                    >
+                    {this.state.hoverPlay ? <PlayCircleFilledIcon /> : <PlayCircleOutlineIcon />}
+                    </IconButton>    
+                    <IconButton>
+                        <FindInPageIcon/>
+                    </IconButton>            
+                    <IconButton>
+                        <ShareIcon/>
+                    </IconButton>
+                    <IconButton>
+                        <FavoriteIcon/>
+                    </IconButton>
                 </CardActions>
             </Card>
         );
