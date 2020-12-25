@@ -3,6 +3,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin: 1rem 0;
+    transition: all 0.2s linear;
 }
 
 .toolbar__subbar {
@@ -15,4 +17,8 @@
     width: 70px;
     height: 70px;
     margin-right: 1rem;
+}
+
+#title {
+    transition: all 0.2s linear;
 }
