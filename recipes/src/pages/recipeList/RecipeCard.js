@@ -12,6 +12,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
+import { Link } from 'react-router-dom';
+
 class RecipeCard extends React.Component {
     state = {
         hoverPlay: false
@@ -24,6 +26,7 @@ class RecipeCard extends React.Component {
         this.labels = (this.props.labels == null) ? "Keine Label" : this.props.labels;
         this.img = (this.props.img == null) ? defaultImg : this.props.img;
         this.description = (this.props.description == null) ? "Keine Beschreibung" : this.props.description;
+        this.id = (this.props.id == null) ? "404" : this.props.id;
     
         this.handleTogglePlay = this.handleTogglePlay.bind(this);
     }
@@ -33,22 +36,25 @@ class RecipeCard extends React.Component {
     render() {
         return(
             <Card raised className="card">
-                <CardActionArea>
-                    <CardContent>
-                        <Typography variant="h4" component="h2">{this.title}</Typography>
-                        <Typography variant="body1">{this.labels}</Typography>
-                    </CardContent>
-                    <CardMedia image={this.img} title="Bild vom Rezept" className="media" />
-                    <CardContent>
-                        <Typography variant="body2">{this.description}</Typography>
-                    </CardContent>
-                </CardActionArea>
+                <Link to={'/rezept/' + this.id}>
+                    <CardActionArea>
+                        <CardContent>
+                            <Typography variant="h4" component="h2">{this.title}</Typography>
+                            <Typography variant="body1">{this.labels}</Typography>
+                        </CardContent>
+                        <CardMedia image={this.img} title="Bild vom Rezept" className="media" />
+                        <CardContent>
+                            <Typography variant="body2">{this.description}</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Link>
 
                 <CardActions className="card__actions">
                     <div>
-                        <Button color="primary" variant="outlined">
-                            Rezept
-                        </Button>
+                        <Link to={'/rezept/' + this.id}>
+                            <Button color="primary" variant="outlined">
+                                Rezept
+                            </Button></Link>
                         <IconButton
                             aria-label="Rezept starten"
                             onMouseEnter = {this.handleTogglePlay}

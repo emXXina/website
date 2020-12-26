@@ -10,7 +10,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 function RecipeList(props) {
     let recipeCards = [];
     if (props.recipes != null) {
-        recipeCards = props.recipes.map((recipe) => <RecipeCard key={recipe.id} title={recipe.title} labels={recipe.labels} description={recipe.description} />);
+        recipeCards = props.recipes.map((recipe) => <RecipeCard key={recipe.id} id={recipe.id} title={recipe.title} labels={recipe.labels} description={recipe.description} />);
     }
 
     const theme = useTheme();

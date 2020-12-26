@@ -1,9 +1,10 @@
 import './App.css';
-import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import RecipeList from './pages/recipeList/RecipeList';
 import RecipeDescription from './pages/recipeList/RecipeDescription';
 import NavBar from './pages/navBar/NavBar';
+import Recipe from './pages/recipes/Recipe';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
@@ -22,17 +23,19 @@ function App() {
 
   return (
     <Router>
-      <Route path="/">
-        <Redirect to="/dashboard"/>
-      </Route>
-      <Route path="/dashboard">
-        <header>
-          <NavBar/>
-        </header>
-        <main className={classes.main}>
-          <RecipeList recipes={getRecipes()} />
-        </main>
-      </Route>
+      <header>
+        <NavBar/>
+      </header>
+      <main className={classes.main}>
+        <Switch>
+          <Route path="/rezept/:id">
+            <Recipe/>
+          </Route>
+          <Route path="/">
+            <RecipeList recipes={getRecipes()} />
+          </Route>
+        </Switch>
+      </main>
     </Router>
   );
 }
