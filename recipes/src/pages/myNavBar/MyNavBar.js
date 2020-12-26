@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AppBar, Toolbar, IconButton, Divider, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import TuneIcon from '@material-ui/icons/Tune';
@@ -7,60 +9,50 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import './mynavbar.scss';
 import Logo from './Logo.js';
 
-class MyNavBar extends React.Component {
-    constructor(props) {
-        super(props);
+function MyNavBar() {
+    const theme = useTheme();
+    const [scrolled, setScrolled] = useState(false);
+    const isBigDevice = useMediaQuery(theme.breakpoints.up('md'));
 
-        this.state = {smallNavBar: ! window.matchMedia('(min-width: 950px)').matches};
-        this.handleScroll = this.handleScroll.bind(this);
-    }
+    useEffect (() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
 
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
-        window.addEventListener('resize', this.handleScroll);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-        window.addEventListener('resize', this.handleScroll);
-    }
-
-    handleScroll() {
+    const handleScroll = () => {
         let scrollTop = window.scrollY;
-        let isBigDevice = window.matchMedia('(min-width: 950px)').matches;
 
-        if (scrollTop > 70 || (! isBigDevice)) {
-            this.setState({ smallNavBar: true });
+        if (scrollTop > 70) {
+            setScrolled(true);
         } else {
-            this.setState({ smallNavBar: false });
-        }
-        
-    }
+            setScrolled(false);
+        }  
+    };
 
-    render() {
-        return(
-            <AppBar position="fixed">
-                <Toolbar className="toolbar" style={this.state.smallNavBar ? {margin: "0 0"} : {margin: "1rem 0"}}>
-                    <Logo/>
+    return(
+        <AppBar position="fixed">
+            <Toolbar className="toolbar">
+                <Logo/>
 
-                    <Typography variant={this.state.smallNavBar ? "h4" : "h1"} component="h1" id="title">Rezepte</Typography>
+                <Typography variant={(scrolled || !isBigDevice) ? "h4" : "h1"} component="h1" id="title">Rezepte</Typography>
 
-                    <div className="toolbar__subbar">
-                        <IconButton color="inherit">
-                            <SearchIcon/>
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <TuneIcon/>
-                        </IconButton>
-                        <Divider orientation="vertical" />
-                        <IconButton color="inherit">
-                            <FavoriteIcon/>
-                        </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-        );
-    }
+                <div className="toolbar__subbar">
+                    <IconButton color="inherit">
+                        <SearchIcon/>
+                    </IconButton>
+                    <IconButton color="inherit">
+                        <TuneIcon/>
+                    </IconButton>
+                    <Divider orientation="vertical" />
+                    <IconButton color="inherit">
+                        <FavoriteIcon/>
+                    </IconButton>
+                </div>
+            </Toolbar>
+        </AppBar>
+    );
 }
 
 export default MyNavBar;

@@ -6,7 +6,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function Logo () {
     const theme = useTheme();
-    const largeWidth = useMediaQuery(theme.breakpoints.up('sm'));
+    const largeWidth = useMediaQuery(theme.breakpoints.up('md'));
     const [scrolledDown, setScrolledDown] = useState(false);
 
     useEffect(() => {
