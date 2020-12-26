@@ -6,10 +6,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import TuneIcon from '@material-ui/icons/Tune';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-import './mynavbar.scss';
+import './navbar.scss';
 import Logo from './Logo.js';
 
-function MyNavBar() {
+function NavBar() {
     const theme = useTheme();
     const [scrolled, setScrolled] = useState(false);
     const isBigDevice = useMediaQuery(theme.breakpoints.up('md'));
@@ -55,4 +55,4 @@ function MyNavBar() {
     );
 }
 
-export default MyNavBar;
+export default NavBar;

@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
 
 import RecipeList from './pages/recipeList/RecipeList';
 import RecipeDescription from './pages/recipeList/RecipeDescription';
-import MyNavBar from './pages/myNavBar/MyNavBar';
+import NavBar from './pages/navBar/NavBar';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
       </Route>
       <Route path="/dashboard">
         <header>
-          <MyNavBar/>
+          <NavBar/>
         </header>
         <main>
           <RecipeList recipes={getRecipes()} />
