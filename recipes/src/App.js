@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import RecipeList from './pages/recipeList/RecipeList';
 import RecipeDescription from './pages/recipeList/RecipeDescription';
@@ -31,8 +31,11 @@ function App() {
           <Route path="/rezept/:id">
             <Recipe/>
           </Route>
-          <Route path="/">
+          <Route path="/" exact>
             <RecipeList recipes={getRecipes()} />
+          </Route>
+          <Route path="/">
+            <Redirect to="/"></Redirect>
           </Route>
         </Switch>
       </main>
