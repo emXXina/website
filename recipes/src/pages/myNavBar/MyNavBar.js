@@ -5,7 +5,7 @@ import TuneIcon from '@material-ui/icons/Tune';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import './mynavbar.scss';
-import ResponsiveLogo from './ResponsiveLogo.js';
+import Logo from './Logo.js';
 
 class MyNavBar extends React.Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class MyNavBar extends React.Component {
         return(
             <AppBar position="fixed">
                 <Toolbar className="toolbar" style={this.state.smallNavBar ? {margin: "0 0"} : {margin: "1rem 0"}}>
-                    <ResponsiveLogo/>
+                    <Logo/>
 
                     <Typography variant={this.state.smallNavBar ? "h4" : "h1"} component="h1" id="title">Rezepte</Typography>
 

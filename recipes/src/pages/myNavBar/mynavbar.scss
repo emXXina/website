@@ -13,12 +13,22 @@
     align-items: center;
 }
 
-.toolbar img {
-    width: 70px;
-    height: 70px;
-    margin-right: 1rem;
+.toolbar__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#title {
+.toolbar__logo img {
+    width: 70px;
+    height: 70px;
+}
+
+.toolbar_logo_sm img {
+    width: 30px;
+    height: 30px;
+}
+
+#title, .toolbar__logo img {
     transition: all 0.2s linear;
 }
