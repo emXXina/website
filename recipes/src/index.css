@@ -3,7 +3,11 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #eee;
+  position: relative;
+  background-image: url('./background-blurred.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 main {
