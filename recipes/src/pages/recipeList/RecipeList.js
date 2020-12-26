@@ -36,7 +36,7 @@ function RecipeList(props) {
 
     
     return(
-        <GridList cellHeight="auto" cols={calcColNum()} spacing={10}>
+        <GridList cellHeight="auto" cols={calcColNum()} spacing={0}>
             {recipeCards.map((recipeCard) => (
                 <GridListTile key={recipeCard.key}>
                     {recipeCard}
