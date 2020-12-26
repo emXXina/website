@@ -11,14 +11,7 @@ body {
 }
 
 main {
-  margin-top: 6rem;
   margin-left: 6%;
   margin-right: 6%;
   margin-bottom: 7rem;
-}
-
-@media (min-width: 950px) {
-  main {
-    margin-top: 12rem;
-  }
 }

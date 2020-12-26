@@ -4,7 +4,7 @@ import '@material/react-card/dist/card.css';
 import "./recipecard.scss";
 import defaultImg from './default.jpg';
 
-import { Card, CardMedia, CardContent, CardActionArea, CardActions, Typography, Paper } from '@material-ui/core';
+import { Card, CardMedia, CardContent, CardActionArea, CardActions, Typography } from '@material-ui/core';
 import { Button, IconButton } from '@material-ui/core/';
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';

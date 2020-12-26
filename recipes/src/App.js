@@ -5,7 +5,21 @@ import RecipeList from './pages/recipeList/RecipeList';
 import RecipeDescription from './pages/recipeList/RecipeDescription';
 import NavBar from './pages/navBar/NavBar';
 
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
 function App() {
+  const theme = useTheme();
+  const useStyles = makeStyles({
+    main: {
+      marginTop: '6rem',
+      [theme.breakpoints.up('md')]: {
+        marginTop: '12rem',
+      },
+    },
+  });
+
+  const classes = useStyles();
+
   return (
     <Router>
       <Route path="/">
@@ -15,7 +29,7 @@ function App() {
         <header>
           <NavBar/>
         </header>
-        <main>
+        <main className={classes.main}>
           <RecipeList recipes={getRecipes()} />
         </main>
       </Route>
