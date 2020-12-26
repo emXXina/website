@@ -4,7 +4,7 @@ import '@material/react-card/dist/card.css';
 import "./recipecard.scss";
 import defaultImg from './default.jpg';
 
-import { Card, CardHeader, CardMedia, CardContent, CardActionArea, CardActions, Typography} from '@material-ui/core';
+import { Card, CardMedia, CardContent, CardActionArea, CardActions, Typography, Paper } from '@material-ui/core';
 import { Button, IconButton } from '@material-ui/core/';
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -32,7 +32,7 @@ class RecipeCard extends React.Component {
 
     render() {
         return(
-            <Card variant="outlined" >
+            <Card raised className="card">
                 <CardActionArea>
                     <CardContent>
                         <Typography variant="h4" component="h2">{this.title}</Typography>
