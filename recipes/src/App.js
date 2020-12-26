@@ -1,10 +1,10 @@
 import './App.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
-import RecipeList from './pages/recipeList/RecipeList';
-import RecipeDescription from './pages/recipeList/RecipeDescription';
-import NavBar from './pages/navBar/NavBar';
-import Recipe from './pages/recipes/Recipe';
+import RecipeList from './components/recipeList/RecipeList';
+import RecipeDescription from './components/recipeList/RecipeDescription';
+import NavBar from './components/navBar/NavBar';
+import Recipe from './components/recipes/Recipe';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
