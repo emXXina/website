@@ -1,0 +1,17 @@
+img {
+    height: 200px;
+    transition: all 0.2s linear;
+}
+
+.slider_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    position: relative;
+}
+
+.stepper {
+    background-color: #ffffff!important;
+}

@@ -18,7 +18,6 @@ function App() {
       },
     },
   });
-
   const classes = useStyles();
 
   return (
