@@ -4,6 +4,9 @@ import { Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import styles from '../../utils.module.css';
+import classNames from 'classnames/bind';
+
 function Logo () {
     const theme = useTheme();
     const largeWidth = useMediaQuery(theme.breakpoints.up('md'));
@@ -24,10 +27,10 @@ function Logo () {
         } else {
             setScrolledDown(false);
         }
-    }
+    };
 
     return(
-        <div className={(scrolledDown || !largeWidth) ? "toolbar__logo toolbar__logo_sm" : "toolbar__logo"}>
+        <div className={`${styles.grow} toolbar__logo ${(scrolledDown || !largeWidth) ? "toolbar__logo_sm" : ""}`}>
             <img src={logo} alt="Logo"/>
             {largeWidth && <Typography variant="subtitle1">finnupa.de</Typography>}
         </div>
