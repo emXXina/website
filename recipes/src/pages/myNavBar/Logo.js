@@ -7,7 +7,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 function Logo () {
     const theme = useTheme();
     const largeWidth = useMediaQuery(theme.breakpoints.up('sm'));
-
     const [scrolledDown, setScrolledDown] = useState(false);
 
     useEffect(() => {
@@ -20,8 +19,7 @@ function Logo () {
     const handleScroll = (e) => {
         let scrollTop = window.scrollY;
 
-        // img only needs to become smaller if scrolled and a large device, otherwise there is no text so it has more space
-        if (scrollTop > 70 && largeWidth) {  
+        if (scrollTop > 70 ) {
             setScrolledDown(true);
         } else {
             setScrolledDown(false);
@@ -29,7 +27,7 @@ function Logo () {
     }
 
     return(
-        <div className={scrolledDown ? "toolbar__logo toolbar_logo_sm" : "toolbar__logo"}>
+        <div className={(scrolledDown || !largeWidth) ? "toolbar__logo toolbar__logo_sm" : "toolbar__logo"}>
             <img src={logo} alt="Logo"/>
             {largeWidth && <Typography variant="subtitle1">finnupa.de</Typography>}
         </div>
