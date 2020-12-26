@@ -21,11 +21,8 @@ class RecipeCard extends React.Component {
         super(props);
         
         this.title = (this.props.title == null) ? "Ohne Titel" : this.props.title;
-
         this.labels = (this.props.labels == null) ? "Keine Label" : this.props.labels;
-
         this.img = (this.props.img == null) ? defaultImg : this.props.img;
-
         this.description = (this.props.description == null) ? "Keine Beschreibung" : this.props.description;
     
         this.handleTogglePlay = this.handleTogglePlay.bind(this);

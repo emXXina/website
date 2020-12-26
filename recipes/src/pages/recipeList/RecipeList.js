@@ -4,28 +4,46 @@ import './recipelist.scss';
 
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-class RecipeList extends React.Component {
-    constructor(props) {
-        super(props);
+function RecipeList(props) {
+    let recipeCards = [];
+    if (props.recipes != null) {
+        recipeCards = props.recipes.map((recipe) => <RecipeCard key={recipe.id} title={recipe.title} labels={recipe.labels} description={recipe.description} />);
+    }
 
-        this.recipeCards = [];
-        if (this.props.recipes != null) {
-            this.recipeCards = this.props.recipes.map((recipe) => <RecipeCard key={recipe.id} title={recipe.title} labels={recipe.labels} description={recipe.description} />);
+    const theme = useTheme();
+    const isTiny = useMediaQuery(theme.breakpoints.down('xs'));
+    const isSmall = useMediaQuery(theme.breakpoints.only('sm'));
+    const isMedium = useMediaQuery(theme.breakpoints.only('md'));
+    const isLarge = useMediaQuery(theme.breakpoints.only('lg'));
+    const isHuge = useMediaQuery(theme.breakpoints.only('xl'));
+
+    const calcColNum = (() => {
+        if (isTiny) {
+            return 1;
+        } else if (isSmall) {
+            return 2;
+        } else if (isMedium) {
+            return 3;
+        } else if (isLarge) {
+            return 4;
+        } else if (isHuge) {
+            return 5;
         }
-    }
+    })
 
-    render() {
-        return(
-            <GridList cellHeight="auto" cols={4} spacing={40}>
-                {this.recipeCards.map((recipeCard) => (
-                    <GridListTile key={recipeCard.key}>
-                        {recipeCard}
-                    </GridListTile>
-                ))}
-            </GridList>
-        );
-    }
+    
+    return(
+        <GridList cellHeight="auto" cols={calcColNum()} spacing={10}>
+            {recipeCards.map((recipeCard) => (
+                <GridListTile key={recipeCard.key}>
+                    {recipeCard}
+                </GridListTile>
+            ))}
+        </GridList>
+    );
 }
 
 export default RecipeList;
