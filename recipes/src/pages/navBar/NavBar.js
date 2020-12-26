@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { AppBar, Toolbar, IconButton, Divider, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import TuneIcon from '@material-ui/icons/Tune';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -39,14 +39,13 @@ function NavBar() {
                 <Typography variant={(scrolled || !isBigDevice) ? "h4" : "h1"} component="h1" id="title">Rezepte</Typography>
 
                 <div className="toolbar__subbar">
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" aria-label="Suche">
                         <SearchIcon/>
                     </IconButton>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" aria-label="Filter">
                         <TuneIcon/>
                     </IconButton>
-                    <Divider orientation="vertical" />
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" aria-label="Favoriten">
                         <FavoriteIcon/>
                     </IconButton>
                 </div>
