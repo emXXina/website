@@ -11,28 +11,28 @@ class MyNavBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {smallNavBar: false};
-
+        this.state = {smallNavBar: ! window.matchMedia('(min-width: 950px)').matches};
         this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleScroll);
     }
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleScroll);
     }
 
-    handleScroll(event) {
+    handleScroll() {
         let scrollTop = window.scrollY;
+        let isBigDevice = window.matchMedia('(min-width: 950px)').matches;
 
-        if (scrollTop > 70) {
+        if (scrollTop > 70 || (! isBigDevice)) {
             this.setState({ smallNavBar: true });
-            document.getElementById("toolbar").style.margin = "0 0";    
         } else {
             this.setState({ smallNavBar: false });
-            document.getElementById("toolbar").style.margin = "1rem 0"; 
         }
         
     }
@@ -40,7 +40,7 @@ class MyNavBar extends React.Component {
     render() {
         return(
             <AppBar position="fixed">
-                <Toolbar className="toolbar" id="toolbar">
+                <Toolbar className="toolbar" style={this.state.smallNavBar ? {margin: "0 0"} : {margin: "1rem 0"}}>
                     <ResponsiveLogo/>
 
                     <Typography variant={this.state.smallNavBar ? "h4" : "h1"} component="h1" id="title">Rezepte</Typography>
