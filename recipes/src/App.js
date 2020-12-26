@@ -29,7 +29,7 @@ function App() {
       <main className={classes.main}>
         <Switch>
           <Route path="/rezept/:id">
-            <Recipe/>
+            <Recipe recipes={getRecipes()}/>
           </Route>
           <Route path="/" exact>
             <RecipeList recipes={getRecipes()} />
@@ -49,7 +49,7 @@ function getRecipes() {
   const recipe1 = new RecipeDescription("Titel1", "Labels", "Beschreibung", "123");
   recipes.push(recipe1);
 
-  const recipe2 = new RecipeDescription("Titel2", "Labels", "Beschreibung", "2");
+  const recipe2 = new RecipeDescription("Titel2", "Labels", "Das hier ist echt lecker!", "2");
   recipes.push(recipe2);
 
   const recipe3 = new RecipeDescription("Titel3", "Labels", "Beschreibung", "3");
