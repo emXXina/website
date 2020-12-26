@@ -36,9 +36,9 @@ class RecipeCard extends React.Component {
                 <CardActionArea>
                     <CardContent>
                         <Typography variant="h4" component="h2">{this.title}</Typography>
-                        <Typography variant="h6">{this.labels}</Typography>
+                        <Typography variant="body1">{this.labels}</Typography>
                     </CardContent>
-                    <CardMedia image={this.img} title="Test" className="media" />
+                    <CardMedia image={this.img} title="Bild vom Rezept" className="media" />
                     <CardContent>
                         <Typography variant="body2">{this.description}</Typography>
                     </CardContent>

@@ -29,7 +29,7 @@ function Logo () {
     return(
         <a href="/">
             <div className={`toolbar__logo ${(scrolledDown || !largeWidth) ? "toolbar__logo_sm" : ""}`}>
-                <img src={logo} alt="Logo"/>
+                <img src={logo} alt="Muffin"/>
                 {largeWidth && <Typography variant="subtitle1">finnupa.de</Typography>}
             </div>
         </a>
