@@ -5,12 +5,13 @@ import TuneIcon from '@material-ui/icons/Tune';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import './mynavbar.scss';
-import logo from './Muffin_200.png';
+import ResponsiveLogo from './ResponsiveLogo.js';
 
 class MyNavBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {small: false};
+
+        this.state = {smallNavBar: false};
 
         this.handleScroll = this.handleScroll.bind(this);
     }
@@ -27,10 +28,10 @@ class MyNavBar extends React.Component {
         let scrollTop = window.scrollY;
 
         if (scrollTop > 70) {
-            this.setState({ small: true });
+            this.setState({ smallNavBar: true });
             document.getElementById("toolbar").style.margin = "0 0";    
         } else {
-            this.setState({ small: false });
+            this.setState({ smallNavBar: false });
             document.getElementById("toolbar").style.margin = "1rem 0"; 
         }
         
@@ -40,12 +41,9 @@ class MyNavBar extends React.Component {
         return(
             <AppBar position="fixed">
                 <Toolbar className="toolbar" id="toolbar">
-                    <div className="toolbar__subbar">
-                        <img src={logo} alt="Logo"/>
-                        <Typography variant="subtitle1">finnupa.de</Typography>
-                    </div>
+                    <ResponsiveLogo/>
 
-                    <Typography variant={this.state.small ? "h4" : "h1"} component="h1" id="title">Rezepte</Typography>
+                    <Typography variant={this.state.smallNavBar ? "h4" : "h1"} component="h1" id="title">Rezepte</Typography>
 
                     <div className="toolbar__subbar">
                         <IconButton color="inherit">
