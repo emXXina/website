@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import RecipeCard from './RecipeCard';
 import './recipelist.scss';
 
@@ -11,6 +11,18 @@ function RecipeList(props) {
     let recipeCards = [];
     if (props.recipes != null) {
         recipeCards = props.recipes.map((recipe) => <RecipeCard key={recipe.id} id={recipe.id} title={recipe.title} labels={recipe.labels} description={recipe.description} />);
+    }
+
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        fetch('/users/').then(res => {
+            if(res.ok) {
+                return res.json();
+            }
+        }).then(jsonRes => setUsers(jsonRes.usersList));
+    }, []);
+    if (users.length > 0) {
+        recipeCards = users.map((user, i) => <RecipeCard key={i} id={404} title={user}/>);
     }
 
     const theme = useTheme();
