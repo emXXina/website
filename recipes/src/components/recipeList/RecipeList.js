@@ -8,22 +8,22 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function RecipeList(props) {
-    let recipeCards = [];
-    if (props.recipes != null) {
-        recipeCards = props.recipes.map((recipe) => <RecipeCard key={recipe.id} id={recipe.id} title={recipe.title} labels={recipe.labels} description={recipe.description} />);
-    }
-
-    const [users, setUsers] = useState([]);
+    const [recipes, setRecipes] = useState([]);
     useEffect(() => {
-        fetch('/users/').then(res => {
-            if(res.ok) {
+        fetch('/recipes').then(res => {
+            if (res.ok) {
                 return res.json();
             }
-        }).then(jsonRes => setUsers(jsonRes.usersList));
+        }).then(jsonRes => setRecipes(jsonRes));
     }, []);
-    if (users.length > 0) {
-        recipeCards = users.map((user, i) => <RecipeCard key={i} id={404} title={user}/>);
-    }
+
+    const [recipeCards, setRecipeCards] = useState([]);
+    useEffect(() => {
+        setRecipeCards(
+            recipes.map((recipe) => 
+            <RecipeCard key={recipe.id} id={recipe.id} title={recipe.name} description={recipe.description}/>)
+        );
+    }, [recipes]);
 
     const theme = useTheme();
     const isTiny = useMediaQuery(theme.breakpoints.down('xs'));
