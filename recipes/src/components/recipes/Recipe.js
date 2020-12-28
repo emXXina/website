@@ -1,18 +1,31 @@
 import { Card, Typography, CardContent } from '@material-ui/core';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import defaultImg from '../recipeList/default.jpg';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
 
 export default function Recipe(props) {
-    let {id} = useParams(); // 404 is recipe not found
-    let recipeInfo = props.recipes.filter(recipe => recipe.id === id)[0];
+    let {id} = useParams();
+    
+    const [valid, setValid] = useState(true);
+    const [recipe, setRecipe] = useState({});
+    useEffect(() => {
+        fetch(`/recipes/${id}`).then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return setValid(false);
+            }
+        }).then(jsonRes => setRecipe(jsonRes));
+    }, []);
+
+
 
     console.log(id);
-    if (recipeInfo == null) {
+    if (! valid) {
         return(
-            <Card>
+            <Card className="card">
                 <CardContent>
                     <Typography variant="h4" component="h2" color="error">Fehler</Typography>
                     <Typography variant="body1">Rezept nicht gefunden</Typography>
@@ -23,12 +36,12 @@ export default function Recipe(props) {
         let imgs = [defaultImg, defaultImg2, defaultImg, defaultImg2];
     
         return(
-            <Card>
+            <Card className="card">
                 <CardContent>
-                    <Typography variant="h2">{recipeInfo.title}</Typography>
+                    <Typography variant="h2">{recipe.name}</Typography>
                     <Typography variant="body1">Labels</Typography>
                     <Slider images={imgs}/>
-                    <Typography variant="body2">{recipeInfo.description}</Typography>
+                    <Typography variant="body2">{recipe.description}</Typography>
                 </CardContent>
             </Card>
         );
