@@ -33,12 +33,10 @@ exports.create = (req, res) => {
                 res.status(404).send({
                     message: `Recipe with id ${req.body.recipe_id} does not exist.`
                 });
-                return;
             } else {
                 res.status(500).send({
                     message: `Error retrieving recipe with id ${req.body.recipe_id}.`
                 });
-                return;
             }
         } else {
             const ingredientCategory = new IngredientCategory({
