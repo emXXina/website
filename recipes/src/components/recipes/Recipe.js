@@ -1,6 +1,8 @@
 import { Card, Typography, CardContent, IconButton, Button, Divider, CardActions } from '@material-ui/core';
-import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print';
+
 import defaultImg from '../recipeList/default.jpg';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
@@ -25,7 +27,10 @@ export default function Recipe(props) {
         }).then(jsonRes => setRecipe(jsonRes));
     }, []);
 
-
+    const printComp = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => printComp.current
+    })
 
     console.log(id);
     if (! valid) {
@@ -44,7 +49,7 @@ export default function Recipe(props) {
                         </IconButton>
                     </div>
                     <div>
-                        <Button color="primary" variant="outlined">
+                        <Button color="primary" variant="outlined" onClick={handlePrint}>
                             Drucken
                         </Button>
                         <IconButton aria-label="Teilen">
@@ -56,14 +61,16 @@ export default function Recipe(props) {
                     </div>
                 </CardActions>
                 <Divider variant="fullWidth"/>
-                <CardContent>
-                    <Typography variant="h2">{recipe.name}</Typography>
-                    <Typography variant="body1">Labels</Typography>
-                </CardContent>
-                <Slider images={imgs}/>
-                <CardContent>
-                    <Typography variant="body2">{recipe.description}</Typography>
-                </CardContent>
+                <div ref={printComp}>
+                    <CardContent>
+                        <Typography variant="h2">{recipe.name}</Typography>
+                        <Typography variant="body1">Labels</Typography>
+                    </CardContent>
+                    <Slider images={imgs}/>
+                    <CardContent>
+                        <Typography variant="body2">{recipe.description}</Typography>
+                    </CardContent>
+                </div>
             </Card>
         );
     }
