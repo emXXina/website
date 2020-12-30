@@ -7,9 +7,9 @@ import defaultImg from '../recipeList/default.jpg';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
 import Error from '../messages/Error';
+import Share from '../actions/Share';
 
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 export default function Recipe(props) {
@@ -52,9 +52,7 @@ export default function Recipe(props) {
                         <Button color="primary" variant="outlined" onClick={handlePrint}>
                             Drucken
                         </Button>
-                        <IconButton aria-label="Teilen">
-                            <ShareIcon/>
-                        </IconButton>
+                        <Share/>
                         <IconButton aria-label="Liken">
                             <FavoriteIcon/>
                         </IconButton>

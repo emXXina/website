@@ -6,8 +6,8 @@ import defaultImg from './default.jpg';
 
 import { Card, CardMedia, CardContent, CardActionArea, CardActions, Typography } from '@material-ui/core';
 import { Button, IconButton } from '@material-ui/core/';
-import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Share from '../actions/Share';
 
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
@@ -59,9 +59,7 @@ class RecipeCard extends React.Component {
                         </IconButton>  
                     </div>     
                     <div>
-                        <IconButton aria-label="Teilen">
-                            <ShareIcon/>
-                        </IconButton>
+                        <Share link={`${window.location.href}rezept/${this.id}`}/>
                         <IconButton aria-label="Liken">
                             <FavoriteIcon/>
                         </IconButton>   

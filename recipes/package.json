@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@material/elevation": "^8.0.0",
     "@material/image-list": "^8.0.0",
     "@material/react-card": "^0.15.0",
@@ -19,6 +20,7 @@
     "mysql": "^2.18.1",
     "node-sass": "^4.14.1",
     "react": "^16.14.0",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.14.0",
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
