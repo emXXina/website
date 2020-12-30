@@ -12,8 +12,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
-import { Link } from 'react-router-dom';
-
 class RecipeCard extends React.Component {
     state = {
         hoverPlay: false
