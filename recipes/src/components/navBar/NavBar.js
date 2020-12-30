@@ -4,7 +4,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import TuneIcon from '@material-ui/icons/Tune';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import './navbar.scss';
 import Logo from './Logo.js';
@@ -24,7 +24,7 @@ function NavBar() {
     const handleScroll = () => {
         let scrollTop = window.scrollY;
 
-        if (scrollTop > 70) {
+        if (scrollTop > 50) {
             setScrolled(true);
         } else {
             setScrolled(false);
@@ -46,7 +46,7 @@ function NavBar() {
                         <TuneIcon/>
                     </IconButton>
                     <IconButton color="inherit" aria-label="Favoriten">
-                        <FavoriteIcon/>
+                        <AccountCircleIcon/>
                     </IconButton>
                 </div>
             </Toolbar>

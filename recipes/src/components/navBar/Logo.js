@@ -19,7 +19,7 @@ function Logo () {
     const handleScroll = (e) => {
         let scrollTop = window.scrollY;
 
-        if (scrollTop > 70 ) {
+        if (scrollTop > 50 ) {
             setScrolledDown(true);
         } else {
             setScrolledDown(false);
