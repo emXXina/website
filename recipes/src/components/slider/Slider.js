@@ -32,7 +32,7 @@ export default function Slider(props) {
 
     return(
         <div className="slider_wrapper">
-            <ButtonBase onClick={next} className="slide_element">
+            <ButtonBase onClick={next} className="slide_element" aria-label="naechstes">
                 <img className={styles.rounded} src={images[currentImgIdx]} alt=""/>
             </ButtonBase>
             <MobileStepper

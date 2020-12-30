@@ -44,7 +44,7 @@ export default function Recipe(props) {
             <Card className="big-card">
                 <CardActions className="card__actions">
                     <div>
-                        <IconButton color="primary" href="/">
+                        <IconButton color="primary" href="/" aria-label="zurueck">
                             <NavigateBeforeIcon/>
                         </IconButton>
                     </div>
