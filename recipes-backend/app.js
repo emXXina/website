@@ -4,8 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-
 var app = express();
 
 // view engine setup
@@ -22,13 +20,16 @@ app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-const recipes = require('../controllers/recipe.controller.js');
+const recipes = require('./controllers/recipe.controller.js');
 app.post('/recipes', recipes.create);
 app.get('/recipes', recipes.findAll);
 app.get('/recipes/:recipeId', recipes.findOne)
 
 const ingredients = require('./controllers/ingredients.controller.js');
 app.post('/ingredients', ingredients.create);
+
+const ingredientCategories = require('./controllers/ingredient_categories.controller.js');
+app.get('/ingredient_categories/:categoryId', ingredientCategories.findOne);
 
 // Since this is the last non-error-handling
 // middleware use(), we assume 404, as nothing else
