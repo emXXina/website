@@ -5,8 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var recipesRouter = require('./routes/recipes.routes');
-var ingredientsRouter = require('./routes/ingredients.routes');
 
 var app = express();
 
@@ -20,11 +18,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/recipes', recipesRouter);
+app.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+const recipes = require('../controllers/recipe.controller.js');
+app.post('/recipes', recipes.create);
+app.get('/recipes', recipes.findAll);
+app.get('/recipes/:recipeId', recipes.findOne)
 
 const ingredients = require('./controllers/ingredients.controller.js');
-app.use('/ingredients', ingredients.create);
+app.post('/ingredients', ingredients.create);
 
 // Since this is the last non-error-handling
 // middleware use(), we assume 404, as nothing else
