@@ -52,7 +52,7 @@ class RecipeCard extends React.Component {
                 <CardActions className="card__actions">
                     <div>
                         <Link to={'/rezept/' + this.id}>
-                            <Button color="primary" variant="outlined">
+                            <Button color="primary" variant="contained">
                                 Rezept
                             </Button></Link>
                         <IconButton
