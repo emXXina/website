@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import RecipeCard from './RecipeCard';
+import Error from '../messages/Error';
 import './recipelist.scss';
 
 import GridList from '@material-ui/core/GridList';
@@ -19,10 +20,14 @@ function RecipeList(props) {
 
     const [recipeCards, setRecipeCards] = useState([]);
     useEffect(() => {
-        setRecipeCards(
-            recipes.map((recipe) => 
-            <RecipeCard key={recipe.id} id={recipe.id} title={recipe.name} description={recipe.description}/>)
-        );
+        if (recipes == null) {
+            setRecipeCards([<Error message="Backend funktioniert nicht" />]);
+        } else {
+            setRecipeCards(
+                recipes.map((recipe) => 
+                <RecipeCard key={recipe.id} id={recipe.id} title={recipe.name} description={recipe.description}/>)
+            );
+        }
     }, [recipes]);
 
     const theme = useTheme();

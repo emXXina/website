@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import defaultImg from '../recipeList/default.jpg';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
+import Error from '../messages/Error';
 
 export default function Recipe(props) {
     let {id} = useParams();
@@ -25,12 +26,7 @@ export default function Recipe(props) {
     console.log(id);
     if (! valid) {
         return(
-            <Card className="card">
-                <CardContent>
-                    <Typography variant="h4" component="h2" color="error">Fehler</Typography>
-                    <Typography variant="body1">Rezept nicht gefunden</Typography>
-                </CardContent>
-            </Card>
+            <Error message="Rezept nicht gefunden"/>
         )
     } else {    
         let imgs = [defaultImg, defaultImg2, defaultImg, defaultImg2];
