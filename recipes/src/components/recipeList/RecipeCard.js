@@ -36,25 +36,22 @@ class RecipeCard extends React.Component {
     render() {
         return(
             <Card raised className="card">
-                <Link to={'/rezept/' + this.id}>
-                    <CardActionArea>
-                        <CardContent>
-                            <Typography variant="h4" component="h2">{this.title}</Typography>
-                            <Typography variant="body1">{this.labels}</Typography>
-                        </CardContent>
-                        <CardMedia image={this.img} title="Bild vom Rezept" className="media" />
-                        <CardContent>
-                            <Typography variant="body2">{this.description}</Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Link>
+                <CardActionArea href={'/rezept/' + this.id}>
+                    <CardContent>
+                        <Typography variant="h4" component="h2">{this.title}</Typography>
+                        <Typography variant="body1">{this.labels}</Typography>
+                    </CardContent>
+                    <CardMedia image={this.img} title="Bild vom Rezept" className="media" />
+                    <CardContent>
+                        <Typography variant="body2">{this.description}</Typography>
+                    </CardContent>
+                </CardActionArea>
 
                 <CardActions className="card__actions">
                     <div>
-                        <Link to={'/rezept/' + this.id}>
-                            <Button color="primary" variant="contained">
-                                Rezept
-                            </Button></Link>
+                        <Button color="primary" variant="contained" href={'/rezept/' + this.id}>
+                            Rezept
+                        </Button>
                         <IconButton
                             aria-label="Rezept starten"
                             onMouseEnter = {this.handleTogglePlay}

@@ -1,10 +1,11 @@
-import { Card, Typography, CardContent } from '@material-ui/core';
+import { Card, Typography, CardContent, IconButton, Divider } from '@material-ui/core';
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import defaultImg from '../recipeList/default.jpg';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
 import Error from '../messages/Error';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
 export default function Recipe(props) {
     let {id} = useParams();
@@ -32,11 +33,19 @@ export default function Recipe(props) {
         let imgs = [defaultImg, defaultImg2, defaultImg, defaultImg2];
     
         return(
-            <Card className="card">
+            <Card className="big-card">
+                <CardContent>
+                    <IconButton color="primary" variant="outlined" href="/">
+                        <NavigateBeforeIcon/>
+                    </IconButton>
+                </CardContent>
+                <Divider variant="fullWidth"/>
                 <CardContent>
                     <Typography variant="h2">{recipe.name}</Typography>
                     <Typography variant="body1">Labels</Typography>
-                    <Slider images={imgs}/>
+                </CardContent>
+                <Slider images={imgs}/>
+                <CardContent>
                     <Typography variant="body2">{recipe.description}</Typography>
                 </CardContent>
             </Card>

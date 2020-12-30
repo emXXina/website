@@ -17,5 +17,9 @@ main {
 }
 
 .card {
-    margin: 1.5rem;
+  margin: 1.5rem;
+}
+
+.big-card {
+  margin: 0;
 }
