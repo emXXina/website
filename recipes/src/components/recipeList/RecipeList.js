@@ -10,6 +10,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 function RecipeList(props) {
     const [recipes, setRecipes] = useState([]);
+    const [successful, setSuccessful] = useState(false);
     useEffect(() => {
         fetch('/recipes').then(res => {
             if (res.ok) {
@@ -21,12 +22,13 @@ function RecipeList(props) {
     const [recipeCards, setRecipeCards] = useState([]);
     useEffect(() => {
         if (recipes == null) {
-            setRecipeCards([<Error message="Backend funktioniert nicht" />]);
+            setSuccessful(false);
         } else {
             setRecipeCards(
                 recipes.map((recipe) => 
                 <RecipeCard key={recipe.id} id={recipe.id} title={recipe.name} description={recipe.description}/>)
             );
+            setSuccessful(true);
         }
     }, [recipes]);
 
@@ -51,16 +53,21 @@ function RecipeList(props) {
         }
     })
 
-    
-    return(
-        <GridList cellHeight="auto" cols={calcColNum()} spacing={0}>
-            {recipeCards.map((recipeCard) => (
-                <GridListTile key={recipeCard.key}>
-                    {recipeCard}
-                </GridListTile>
-            ))}
-        </GridList>
-    );
+    if (successful) {
+        return(
+            <GridList cellHeight="auto" cols={calcColNum()} spacing={0}>
+                {recipeCards.map((recipeCard) => (
+                    <GridListTile key={recipeCard.key}>
+                        {recipeCard}
+                    </GridListTile>
+                ))}
+            </GridList>
+        );
+    } else {
+        return(
+            <Error message="Rezepte konnten nicht geladen werden."/>
+        );
+    }
 }
 
 export default RecipeList;

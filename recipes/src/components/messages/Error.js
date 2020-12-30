@@ -1,15 +1,14 @@
 import React from 'react';
 import { Typography, Card, CardContent } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 export default function Error(props) {
     let message = props.message;
 
     return(
-        <Card className="card">
-            <CardContent>
-                <Typography variant="h4" component="h2" color="error">Fehler</Typography>
-                <Typography variant="body1">{message}</Typography>                
-            </CardContent>
-        </Card>
+        <Alert severity="error" variant="outlined" style={{ backgroundColor: '#ffffff' }}>
+            <AlertTitle>Fehler</AlertTitle>
+            {message}
+        </Alert>
     );
 }
