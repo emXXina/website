@@ -30,6 +30,7 @@ app.post('/ingredients', ingredients.create);
 
 const ingredientCategories = require('./controllers/ingredient_categories.controller.js');
 app.get('/ingredient_categories/:categoryId', ingredientCategories.findOne);
+app.post('/ingredient_categories', ingredientCategories.create);
 
 // Since this is the last non-error-handling
 // middleware use(), we assume 404, as nothing else

@@ -5,6 +5,19 @@ const IngredientCategory = function(category) {
     this.recipe_id = category.recipe_id;
 }
 
+IngredientCategory.create = (newIngredientCategory, result) => {
+    sql.query('INSERT INTO ingredient_categories SET ?', newIngredientCategory, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        console.log("Created ingredient_category: ", {id: res.insertId, ...newIngredientCategory});
+        result(null, {id: res.insertId, ...newIngredientCategory});
+    });
+};
+
 IngredientCategory.findById = (categoryId, result) => {
     sql.query(`SELECT * FROM ingredient_categories WHERE id = ${categoryId}`, (err, res) => {
         if (err) {
