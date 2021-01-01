@@ -13,4 +13,8 @@ Ingredient.create = (newIngredient, result) => {
     basics.create(result, "ingredients", newIngredient);
 };
 
+Ingredient.findByCategoryId = (category_id, result) => {
+    basics.getAllWhere(result, "ingredients", `category_id = ${category_id}`);
+};
+
 module.exports = Ingredient;
