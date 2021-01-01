@@ -29,6 +29,7 @@ const ingredients = require('./controllers/ingredients.controller.js');
 app.post('/ingredients', ingredients.create);
 
 const ingredientCategories = require('./controllers/ingredient_categories.controller.js');
+app.get('/ingredient_categories/givenRecipe/:recipeId', ingredientCategories.findWithRecipeId);
 app.get('/ingredient_categories/:categoryId', ingredientCategories.findOne);
 app.post('/ingredient_categories', ingredientCategories.create);
 

@@ -32,6 +32,19 @@ exports.getAll = (result, table) => {
     });
 }
 
+exports.getAllWhere = (result, table, condition) => {
+    sql.query(`SELECT * FROM ${table} WHERE ${condition}`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        console.log(`all entries in ${table} where ${condition}: `, res);
+        result(null, res);
+    });
+}
+
 exports.create = (result, table, newItem) => {
     sql.query(`INSERT INTO ${table} SET ?`, newItem, (err, res) => {
         if (err) {

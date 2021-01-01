@@ -29,3 +29,9 @@ exports.create = (req, res) => {
         }
     })
 }
+
+exports.findWithRecipeId = (req, res) => {
+    IngredientCategory.findByRecipeId(req.params.recipeId, basics.resultHandling(req, res,
+        `Should not throw a 404 error but return an empty list.`,
+        `Error retrieving ingredient categories with recipe id ${req.params.recipeId}.`));
+}

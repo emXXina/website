@@ -14,4 +14,8 @@ IngredientCategory.findById = (categoryId, result) => {
     basics.findByIdInTable(categoryId, result, "ingredient_categories");
 };
 
+IngredientCategory.findByRecipeId = (recipeId, result) => {
+    basics.getAllWhere(result, "ingredient_categories", `recipe_id = ${recipeId}`);
+};
+
 module.exports = IngredientCategory;
