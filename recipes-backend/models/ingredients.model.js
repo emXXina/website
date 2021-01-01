@@ -1,4 +1,5 @@
 const sql = require('./db.js');
+const basics = require('./basics.model');
 
 // constructor
 const Ingredient = function(ingredient) {
@@ -9,16 +10,7 @@ const Ingredient = function(ingredient) {
 };
 
 Ingredient.create = (newIngredient, result) => {
-    sql.query('INSERT INTO ingredients SET ?', newIngredient, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-
-        console.log("Created ingredient: ", {id: res.insertId, ...newIngredient});
-        result(null, {id: res.insertId, ...newIngredient});
-    });
+    basics.create(result, "ingredients", newIngredient);
 };
 
 module.exports = Ingredient;

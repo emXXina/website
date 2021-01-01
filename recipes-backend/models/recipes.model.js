@@ -1,4 +1,5 @@
 const sql = require("./db.js");
+const basics = require('./basics.model');
 
 // constructor
 const Recipe = function(recipe) {
@@ -7,48 +8,15 @@ const Recipe = function(recipe) {
 };
 
 Recipe.create = (newRecipe, result) => {
-    sql.query('INSERT INTO recipes SET ?', newRecipe, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-
-        console.log("Created recipe: ", {id: res.insertId, ...newRecipe});
-        result(null, {id: res.insertId, ...newRecipe});
-    });
+    basics.create(result, "recipes", newRecipe);
 };
 
 Recipe.findById = (recipeId, result) => {
-    sql.query(`SELECT * FROM recipes WHERE id = ${recipeId}`, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-
-        if (res.length) {
-            console.log("found recipe: ", res[0]);
-            result(null, res[0]);
-            return;
-        }
-
-        // not found recipe with the id
-        result({ kind: "not_found"}, null);
-    });
+    basics.findByIdInTable(recipeId, result, "recipes");
 };
 
 Recipe.getAll = result => {
-    sql.query('SELECT * FROM recipes', (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(null, err);
-            return;
-        }
-
-        console.log("recipes: ", res);
-        result(null, res);
-    });
+    basics.getAll(result, "recipes");
 };
 
 module.exports = Recipe;

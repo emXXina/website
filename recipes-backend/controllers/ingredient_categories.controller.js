@@ -1,58 +1,31 @@
 const IngredientCategory = require('../models/ingredient_categories.model');
 const Recipe = require('../models/recipes.model');
+const basics = require('./basics.controller');
 
 exports.findOne = (req, res) => {
-    IngredientCategory.findById(req.params.categoryId, (err, data) => {
-        if (err) {
-            if (err.kind === "not_found") {
-                res.status(404).send({
-                    message: `Not found ingredient_category with id ${req.params.categoryId}.`
-                });
-            } else {
-                res.status(500).send({
-                    message: `Error retrieving ingredient_category with id ${req.params.categoryId}.`
-                });
-            }
-        } else {
-            res.send(data);
-        }
-    });
+    IngredientCategory.findById(req.params.categoryId, basics.resultHandling(req, res,
+        `Could not find ingredient_category with id ${req.params.categoryId}.`,
+        `Error retrieving ingredient_category with id ${req.params.categoryId}.`));
 };
 
 exports.create = (req, res) => {
-    if (!req.body) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-    }
+    basics.checkReqBody(req, res);
 
     // check if recipe id exists
     Recipe.findById(req.body.recipe_id, (err, data) => {
         if (err) {
-            if (err.kind === "not_found") {
-                res.status(404).send({
-                    message: `Recipe with id ${req.body.recipe_id} does not exist.`
-                });
-            } else {
-                res.status(500).send({
-                    message: `Error retrieving recipe with id ${req.body.recipe_id}.`
-                });
-            }
+            basics.errorHandling(req, res, err,
+                `Recipe with id ${req.body.recipe_id} not found.`,
+                `Error retrieving recipe with id ${req.body.recipe_id}.`);
         } else {
             const ingredientCategory = new IngredientCategory({
                 name: req.body.name,
                 recipe_id: req.body.recipe_id
             });
         
-            IngredientCategory.create(ingredientCategory, (err, data) => {
-                if (err) {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while creating the ingredient category."
-                    });
-                } else {
-                    res.send(data);
-                }
-            });
+            IngredientCategory.create(ingredientCategory, basics.resultHandling(req, res,
+                "Creating an ingredient_categoryshould not throw a 404 error.",
+                "Some error occured while creating the ingredient category."));
         }
     })
 }
