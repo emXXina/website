@@ -7,6 +7,7 @@ import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
 import Error from '../messages/Error';
 import RecipeActionBar from './RecipeActionBar';
+import Ingredients from './Ingredients';
 
 export default function Recipe(props) {
     let {id} = useParams();
@@ -44,6 +45,7 @@ export default function Recipe(props) {
                     <Slider images={imgs}/>
                     <CardContent>
                         <Typography variant="body2">{recipe.description}</Typography>
+                        <Ingredients id={id}/>
                     </CardContent>
                 </div>
             </Card>
