@@ -1,5 +1,4 @@
 import React from 'react';
-import { Typography, Card, CardContent } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 
 export default function Error(props) {

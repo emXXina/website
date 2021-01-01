@@ -25,14 +25,13 @@ export default function Recipe(props) {
                 return setValid(false);
             }
         }).then(jsonRes => setRecipe(jsonRes));
-    }, []);
+    }, [id]);
 
     const printComp = useRef();
     const handlePrint = useReactToPrint({
         content: () => printComp.current
     })
 
-    console.log(id);
     if (! valid) {
         return(
             <Error message="Rezept nicht gefunden"/>
