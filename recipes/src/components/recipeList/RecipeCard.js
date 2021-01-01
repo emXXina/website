@@ -23,7 +23,6 @@ class RecipeCard extends React.Component {
         this.title = (this.props.title == null) ? "Ohne Titel" : this.props.title;
         this.labels = (this.props.labels == null) ? "Keine Label" : this.props.labels;
         this.img = (this.props.img == null) ? defaultImg : this.props.img;
-        this.description = (this.props.description == null) ? "Keine Beschreibung" : this.props.description;
         this.id = (this.props.id == null) ? "404" : this.props.id;
     
         this.handleTogglePlay = this.handleTogglePlay.bind(this);
@@ -40,9 +39,6 @@ class RecipeCard extends React.Component {
                         <Typography variant="body1">{this.labels}</Typography>
                     </CardContent>
                     <CardMedia image={this.img} title="Bild vom Rezept" className="media" />
-                    <CardContent>
-                        <Typography variant="body2">{this.description}</Typography>
-                    </CardContent>
                 </CardActionArea>
 
                 <CardActions className="card__actions">

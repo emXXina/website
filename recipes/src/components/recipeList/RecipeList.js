@@ -26,7 +26,7 @@ function RecipeList(props) {
         } else {
             setRecipeCards(
                 recipes.map((recipe) => 
-                <RecipeCard key={recipe.id} id={recipe.id} title={recipe.name} description={recipe.description}/>)
+                <RecipeCard key={recipe.id} id={recipe.id} title={recipe.name} />)
             );
             setSuccessful(true);
         }
