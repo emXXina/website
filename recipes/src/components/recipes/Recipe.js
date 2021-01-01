@@ -1,16 +1,12 @@
-import { Card, Typography, CardContent, IconButton, Button, Divider, CardActions } from '@material-ui/core';
+import { Card, Typography, CardContent, Divider } from '@material-ui/core';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useReactToPrint } from 'react-to-print';
 
 import defaultImg from '../recipeList/default.jpg';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
 import Error from '../messages/Error';
-import Share from '../actions/Share';
-
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import RecipeActionBar from './RecipeActionBar';
 
 export default function Recipe(props) {
     let {id} = useParams();
@@ -28,9 +24,6 @@ export default function Recipe(props) {
     }, [id]);
 
     const printComp = useRef();
-    const handlePrint = useReactToPrint({
-        content: () => printComp.current
-    })
 
     if (! valid) {
         return(
@@ -41,22 +34,7 @@ export default function Recipe(props) {
     
         return(
             <Card className="big-card">
-                <CardActions className="card__actions">
-                    <div>
-                        <IconButton color="primary" href="/" aria-label="zurueck">
-                            <NavigateBeforeIcon/>
-                        </IconButton>
-                    </div>
-                    <div>
-                        <Button color="primary" variant="outlined" onClick={handlePrint}>
-                            Drucken
-                        </Button>
-                        <Share/>
-                        <IconButton aria-label="Liken">
-                            <FavoriteIcon/>
-                        </IconButton>
-                    </div>
-                </CardActions>
+                <RecipeActionBar print={printComp}/>
                 <Divider variant="fullWidth"/>
                 <div ref={printComp}>
                     <CardContent>
