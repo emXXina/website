@@ -48,7 +48,7 @@ export default function Share(props) {
                 </div>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseDialog} color="primary" variant="contained" disableElevation>Fertig</Button>
+                <Button onClick={handleCloseDialog} color="primary" variant="contained" disableElevation>Schließen</Button>
             </DialogActions>
         </Dialog>
         <Snackbar
