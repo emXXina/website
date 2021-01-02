@@ -8,6 +8,7 @@ import Slider from '../slider/Slider.js';
 import Error from '../messages/Error';
 import RecipeActionBar from './RecipeActionBar';
 import Ingredients from './Ingredients';
+import Instructions from './Instructions';
 
 export default function Recipe(props) {
     let {id} = useParams();
@@ -49,6 +50,10 @@ export default function Recipe(props) {
                     <Divider variant="fullWidth"/>
                     <CardContent>
                         <Ingredients id={id}/>
+                    </CardContent>
+                    <Divider variant="fullWidth"/>
+                    <CardContent>
+                        <Instructions id={id}/>
                     </CardContent>
                 </div>
             </Card>
