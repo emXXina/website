@@ -4,11 +4,19 @@ const basics = require('./basics.controller');
 exports.create = (req, res) => {
     basics.checkReqBody(req, res);
 
-    // TODO: check whether position and recipe_id combi already exists
+    // check whether position and recipe_id combi already exists
     Instruction.getByRecipeNPosition(req.body.recipe_id, req.body.position, (err, data) => {
         if (err) {
-            if (err.kind === "not_found") {
-                // create instruction
+            basics.errorHandling(req, res, err,
+                `Getting all instructions with recipe id ${req.body.recipeId} and position ${req.body.position} should not result in a 404 error.`,
+                `Error retrieving recipe with id ${req.body.recipe_id} and position ${req.body.position}.`);
+        } else {
+            if (data.length > 0) {
+                // instruction with this recipe_id and position already exists
+                res.status(409).send({
+                    message: `Recipe with id ${req.body.recipe_id} has already an instruction with position ${req.body.position}.`
+                });
+            } else {
                 const instruction = new Instruction({
                     text: req.body.text,
                     position: req.body.position,
@@ -18,16 +26,7 @@ exports.create = (req, res) => {
                 Instruction.create(instruction, basics.resultHandling(req, res,
                     `Saving an instruction should not lead to an 404 error.`,
                     `Error while saving an instruction.`));
-            } else {
-                res.status(500).send({
-                    message: err.message || `Error retrieving instruction with recipe id ${req.body.recipe_id} and position ${req.body.position}.`
-                });
             }
-        } else {
-            // instruction with this recipe_id and position already exists
-            res.status(409).send({
-                message: `Recipe with id ${req.body.recipe_id} has already an instruction with position ${req.body.position}.`
-            });
         }
     })
 };
