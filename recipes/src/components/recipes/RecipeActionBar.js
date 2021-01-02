@@ -3,7 +3,7 @@ import React from 'react';
 import { CardActions, IconButton, Button } from '@material-ui/core';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import Share from '../actions/Share';
+import Share from '../utils/Share';
 import { useReactToPrint } from 'react-to-print';
 
 export default function RecipeActionBar(props) {

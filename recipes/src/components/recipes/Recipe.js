@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import defaultImg from '../recipeList/default.jpg';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
-import Error from '../messages/Error';
+import Error from '../utils/Error';
 import RecipeActionBar from './RecipeActionBar';
 import Ingredients from './Ingredients';
 import Instructions from './Instructions';
