@@ -25,7 +25,6 @@ export default function Ingredients(props) {
                     return res.json();
                 }
             }).then(jsonRes => {
-                console.log(category.id, " : ", ingredients);
                 ingredients.set(category.id, jsonRes);
                 setIngredients(new Map(ingredients));
             })
