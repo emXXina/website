@@ -34,6 +34,11 @@ app.get('/ingredient_categories/givenRecipe/:recipeId', ingredientCategories.fin
 app.get('/ingredient_categories/:categoryId', ingredientCategories.findOne);
 app.post('/ingredient_categories', ingredientCategories.create);
 
+const instructions = require('./controllers/instructions.controller.js');
+app.post('/instructions', instructions.create);
+app.get('/instructions/givenRecipe/:recipeId/givenPosition/:position', instructions.getByRecipeNPosition);
+app.get('/instructions/givenRecipe/:recipeId', instructions.getByRecipeId);
+
 // Since this is the last non-error-handling
 // middleware use(), we assume 404, as nothing else
 // responded.
