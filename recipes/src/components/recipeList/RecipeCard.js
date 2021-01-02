@@ -7,7 +7,7 @@ import defaultImg from './default.jpg';
 import { Card, CardMedia, CardContent, CardActionArea, CardActions, Typography } from '@material-ui/core';
 import { Button, IconButton } from '@material-ui/core/';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import Share from '../actions/Share';
+import Share from '../utils/Share';
 
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';

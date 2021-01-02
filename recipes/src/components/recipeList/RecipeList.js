@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import RecipeCard from './RecipeCard';
-import Error from '../messages/Error';
+import Error from '../utils/Error';
 import './recipelist.scss';
 
 import GridList from '@material-ui/core/GridList';
