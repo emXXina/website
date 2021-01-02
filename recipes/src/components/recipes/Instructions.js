@@ -10,7 +10,16 @@ export default function Instructions(props) {
             if (res.ok) {
                 return res.json();
             }
-        }).then(jsonRes => setInstructions(jsonRes));
+        }).then(jsonRes => {
+            jsonRes.sort(function(a,b) {
+                if (a.position < b.position) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+            setInstructions(jsonRes);
+        });
     }, [id]);
 
     return(
@@ -18,7 +27,7 @@ export default function Instructions(props) {
             <Typography variant="h4" className="recipeSubtitle" component="h3">Zubereitung</Typography>
             {instructions.map((instruction) => {
                 return(
-                    <li>{instruction.text}</li>
+                    <li key={instruction.position}>{instruction.text}</li>
                 );
             })}
         </ol>
