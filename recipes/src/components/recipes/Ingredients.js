@@ -40,7 +40,7 @@ export default function Ingredients(props) {
                 if (ingredientsOfCategory !== undefined && ingredientsOfCategory.length > 0) {
                     return(
                         <div key={category.id}>
-                            {category.name == "main" || <Typography variant="subtitle1">{category.name}</Typography>}
+                            {category.name === "main" || <Typography variant="subtitle1">{category.name}</Typography>}
                             <ul>
                                 { ingredientsOfCategory.map((ingredient) => 
                                     <li key={ingredient.id}>
