@@ -1,4 +1,3 @@
-import './App.css';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
 import RecipeList from './components/recipeList/RecipeList';
