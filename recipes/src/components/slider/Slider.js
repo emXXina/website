@@ -11,15 +11,13 @@ export default function Slider(props) {
     const [currentImgIdx, setCurrentImgIdx] = useState(0);
 
     const next = () => {
-        if (currentImgIdx < images.length -1) {
-            setCurrentImgIdx(currentImgIdx + 1);
-        }
+        let newImgIdx = (currentImgIdx + 1) % images.length;
+        setCurrentImgIdx(newImgIdx);
     };
 
     const previous = () => {
-        if (currentImgIdx > 0) {
-            setCurrentImgIdx(currentImgIdx - 1);
-        }
+        let newImgIdx = ((currentImgIdx - 1) + images.length) % images.length;
+        setCurrentImgIdx(newImgIdx);
     };
 
     const theme = useTheme();
@@ -42,12 +40,12 @@ export default function Slider(props) {
                 position="static"
                 activeStep={currentImgIdx}
                 nextButton={
-                    <IconButton aria-label="naechtes" onClick={next} disabled={currentImgIdx === (images.length -1)} color="primary">
+                    <IconButton aria-label="naechtes" onClick={next} color="primary">
                         <NavigateNextIcon fontSize="large"/>
                     </IconButton>
                 }
                 backButton={
-                    <IconButton aria-label="zurueck" onClick={previous} disabled={currentImgIdx === 0} color="primary">
+                    <IconButton aria-label="zurueck" onClick={previous} color="primary">
                         <NavigateBeforeIcon fontSize="large"/>
                     </IconButton>
                 }
