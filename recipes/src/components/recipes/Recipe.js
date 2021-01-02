@@ -45,6 +45,9 @@ export default function Recipe(props) {
                     <Slider images={imgs}/>
                     <CardContent>
                         <Typography variant="body2">{recipe.description}</Typography>
+                    </CardContent>
+                    <Divider variant="fullWidth"/>
+                    <CardContent>
                         <Ingredients id={id}/>
                     </CardContent>
                 </div>
