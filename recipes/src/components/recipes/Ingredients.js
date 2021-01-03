@@ -44,7 +44,8 @@ export default function Ingredients(props) {
             background: theme.palette.background.default
         },
         headCell: {
-            padding: '.5rem 1rem'
+            padding: '.5rem 1rem',
+            width: '70%'
         },
         bodyCell: {
             padding: '.5rem 1rem',
