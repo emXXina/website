@@ -21,7 +21,8 @@ main {
 }
 
 .big-card {
-  margin: 0;
+  margin: auto;
+  max-width: 1000px;
 }
 
 .card__actions {
