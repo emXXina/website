@@ -69,12 +69,14 @@ export default function Ingredients(props) {
                             className={classes.tableContainer}
                             >
                             <Table>
+                                { category.name !== "main" &&
                                 <TableHead>
                                     <TableRow>
                                         <TableCell className={classes.headCell}>{category.name}</TableCell>
                                         <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
+                                }
                                 <TableBody>
                                     {ingredientsOfCategory.map((ingredient) => 
                                         <TableRow key={ingredient.id}>
