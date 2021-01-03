@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import './recipes.scss';
 
@@ -31,23 +32,50 @@ export default function Ingredients(props) {
         )
     }, [categories]);
 
+
+    const useStyles = makeStyles({
+        category: {
+            fontWeight: '400'
+        },
+        containerWrapper: {
+            marginLeft: '1rem',
+            marginBottom: '1rem'
+        },
+        container: {
+            display: 'flex',
+            flexDirection: 'row'
+        },
+        quantity: {
+            display: 'block',
+            width: '100px',
+            fontWeight: '500',
+            textAlign: 'right',
+            marginRight: '1em'
+        }
+    });
+    const classes = useStyles();
+
+
     return(
         <div>
             <Typography variant="h4" className="recipeSubtitle" component="h3">Zutaten</Typography>
+
             { categories.map((category) => {
                 let ingredientsOfCategory = ingredients.get(category.id);
                 if (ingredientsOfCategory !== undefined && ingredientsOfCategory.length > 0) {
                     return(
                         <div key={category.id}>
                             {category.name === "main" || <Typography variant="subtitle1">{category.name}</Typography>}
-                            <ul>
-                                { ingredientsOfCategory.map((ingredient) => 
-                                    <li key={ingredient.id}>
-                                        <Typography>{ingredient.quantity + "\u2009" + ingredient.unit + " " + ingredient.name}</Typography>
-                                    </li>
-                                    )
-                                }
-                            </ul>
+                            
+                            <div className={classes.containerWrapper}>
+                            { ingredientsOfCategory.map((ingredient) => 
+                                    <div key={ingredient.id} className={classes.container}>
+                                        <Typography className={classes.quantity}>{ingredient.quantity + "\u2009" + ingredient.unit}</Typography>
+                                        <Typography>{" " + ingredient.name}</Typography>
+                                    </div>
+                                )
+                            }
+                            </div>
                         </div>
                     )
                 } else {
