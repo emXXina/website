@@ -13,9 +13,11 @@ export default function NumberedElement(props) {
         },
         number: {
             borderRadius: theme.shape.borderRadius,
+            borderColor: theme.palette.divider,
+            borderWidth: '1px',
+            borderStyle: 'solid',
             padding: '.4rem',
-            background: theme.palette.primary.main,
-            color: '#fff',
+            background: theme.palette.background.default,
             display: 'block',
             width: '1.25em',
             height: '1.25em',
