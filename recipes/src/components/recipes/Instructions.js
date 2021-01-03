@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
+import NumberedElement from '../utils/NumberedElement';
 
 export default function Instructions(props) {
     const id = props.id;
@@ -23,13 +24,19 @@ export default function Instructions(props) {
     }, [id]);
 
     return(
-        <ol>
+        <div>
             <Typography variant="h4" className="recipeSubtitle" component="h3">Zubereitung</Typography>
-            {instructions.map((instruction) => {
-                return(
-                    <li key={instruction.position}>{instruction.text}</li>
-                );
-            })}
-        </ol>
+            <div className="instructionsList">
+                {instructions.map((instruction,i) => {
+                    return(
+                        <NumberedElement
+                            key={instruction.position}
+                            number={instruction.position}
+                            content={instruction.text}
+                            />
+                    );
+                })}
+            </div>
+        </div>
     )
 }
