@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Table, TableBody, TableHead, TableRow, TableCell, TableContainer, Paper } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import './recipes.scss';
 
@@ -33,24 +33,22 @@ export default function Ingredients(props) {
     }, [categories]);
 
 
+    const theme = useTheme();
     const useStyles = makeStyles({
-        category: {
-            fontWeight: '400'
+        tableContainer: {
+            marginBottom: '1rem',
+            maxWidth: '400px',
+            borderStyle: 'solid',
+            borderWidth: '1px',
+            borderColor: theme.palette.divider,
+            background: theme.palette.background.default
         },
-        containerWrapper: {
-            marginLeft: '1rem',
-            marginBottom: '1rem'
+        headCell: {
+            padding: '.5rem 1rem'
         },
-        container: {
-            display: 'flex',
-            flexDirection: 'row'
-        },
-        quantity: {
-            display: 'block',
-            width: '100px',
-            fontWeight: '500',
-            textAlign: 'right',
-            marginRight: '1em'
+        bodyCell: {
+            padding: '.5rem 1rem',
+            borderWidth: '0px'
         }
     });
     const classes = useStyles();
@@ -64,25 +62,36 @@ export default function Ingredients(props) {
                 let ingredientsOfCategory = ingredients.get(category.id);
                 if (ingredientsOfCategory !== undefined && ingredientsOfCategory.length > 0) {
                     return(
-                        <div key={category.id}>
-                            {category.name === "main" || <Typography variant="subtitle1">{category.name}</Typography>}
-                            
-                            <div className={classes.containerWrapper}>
-                            { ingredientsOfCategory.map((ingredient) => 
-                                    <div key={ingredient.id} className={classes.container}>
-                                        <Typography className={classes.quantity}>{ingredient.quantity + "\u2009" + ingredient.unit}</Typography>
-                                        <Typography>{" " + ingredient.name}</Typography>
-                                    </div>
-                                )
-                            }
-                            </div>
-                        </div>
+                        <TableContainer 
+                            elevation={0}
+                            key={category.id}
+                            component={Paper}
+                            className={classes.tableContainer}
+                            >
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell className={classes.headCell}>{category.name}</TableCell>
+                                        <TableCell></TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {ingredientsOfCategory.map((ingredient) => 
+                                        <TableRow key={ingredient.id}>
+                                            <TableCell className={classes.bodyCell}>{ingredient.name}</TableCell>
+                                            <TableCell className={classes.bodyCell}>
+                                                {ingredient.quantity + "\u2009" + ingredient.unit}
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     )
                 } else {
                     return(<div key={category.id}></div>);
                 }
-            })
-            }
+            })}
         </div>
     );
 }
