@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Typography, CardContent, Stepper, Step, StepLabel, Divider } from '@material-ui/core';
 import AddFundamentals from './AddFundamentals';
+import AddIngredients from './AddIngredients';
 
 export default function RecipeCreator() {
     const steps = ['Grundlegende Eigenschaften', 'Zutaten', 'Zubereitung'];
@@ -12,16 +13,21 @@ export default function RecipeCreator() {
             case 0:
                 return <AddFundamentals/>;
             case 1:
-                return "Zutaten...";
+                return <AddIngredients/>;
             case 2:
                 return "Zubereitung...";
             default:
                 return "Das sollte nicht passieren.";
         }
-    }
+    };
+    
     const isCompleted = (index) => {
         return completed.has(index);
-    }
+    };
+
+    const isNowComplete = () => {
+        return true;
+    };
 
     const handleNext = () => {
         if (isNowComplete()) {
@@ -34,22 +40,18 @@ export default function RecipeCreator() {
         
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         console.log(completed);
-    }
+    };
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
-    const isNowComplete = () => {
-        return true;
-    }
 
     return(
         <Card className="big-card">
             <CardContent>
                 <Typography variant="h2">Neues Rezept</Typography>
 
-                <Stepper activeStep={activeStep}>
+                <Stepper activeStep={activeStep} alternativeLabel>
                     {steps.map((label, index) => {
                         const stepProps = {};
                         if(!isCompleted(index) || index === activeStep) {
