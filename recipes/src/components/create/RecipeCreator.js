@@ -6,7 +6,6 @@ export default function RecipeCreator() {
     const steps = ['Grundlegende Eigenschaften', 'Zutaten', 'Zubereitung'];
     const [activeStep, setActiveStep] = useState(0);
     const [completed, setCompleted] = useState(new Set());
-
     
     function getContent(step) {
         switch(step) {
@@ -49,6 +48,7 @@ export default function RecipeCreator() {
         <Card className="big-card">
             <CardContent>
                 <Typography variant="h2">Neues Rezept</Typography>
+
                 <Stepper activeStep={activeStep}>
                     {steps.map((label, index) => {
                         const stepProps = {};
@@ -62,12 +62,13 @@ export default function RecipeCreator() {
                         );
                     })}
                 </Stepper>
+
                 <div>
                     {activeStep === steps.length ? (
                         <Typography>Fertig!</Typography>
                     ) : (
                         <div>
-                            <Typography variant="h4" component="h3">{steps[activeStep]}</Typography>
+                            <Typography variant="h4" component="h3" paragraph>{steps[activeStep]}</Typography>
                             {getContent(activeStep)}
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>
                                 <Button disabled={activeStep === 0} onClick={handleBack}>

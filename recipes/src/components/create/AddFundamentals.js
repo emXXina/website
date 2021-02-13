@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField } from '@material-ui/core';
+import { TextField, Typography } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 export default function AddFundamentals() {
@@ -18,15 +18,22 @@ export default function AddFundamentals() {
 
     return(
         <div>
+            <Typography className="" paragraph>Hallöle!<br/>
+                
+            Danke, dass du dieser Seite ein neues Rezept hinzufügen möchtest.<br/>
+            
+            Zunächst einmal geht es hier um die grundlegenden Dinge.</Typography>
+
             <form className={classes.form} autoComplete='off'>
                 <TextField
-                    variant="filled"
+                    required
+                    variant="outlined"
                     id="name"
                     label="Name" />
                 <TextField
                     className={classes.fullWidth}
                     fullWidth
-                    variant="filled"
+                    variant="outlined"
                     id="description"
                     label="Kurzbeschreibung" />
             </form>
