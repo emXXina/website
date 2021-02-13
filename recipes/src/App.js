@@ -1,9 +1,8 @@
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
-import RecipeList from './components/recipeList/RecipeList';
+import RecipeDashboard from './components/recipesDashboard/RecipeDashboard';
 import NavBar from './components/navBar/NavBar';
 import Recipe from './components/recipes/Recipe';
-import AddButton from './components/utils/AddButton';
 import RecipeCreator from './components/create/RecipeCreator';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -31,8 +30,7 @@ function App() {
             <Recipe/>
           </Route>
           <Route path="/" exact>
-            <RecipeList/>
-            <AddButton path="/create"/>
+            <RecipeDashboard/>
           </Route>
           <Route path="/create">
             <RecipeCreator/>
