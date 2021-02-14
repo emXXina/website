@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
 
-import AddButton from "./AddButton";
 import RecipeList from "./RecipeList";
 import RecipeCard from './RecipeCard';
 import Error from '../utils/Error';
+import BasicBigButton from '../utils/BasicBigButton';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 function RecipeDashboard(props) {
     const [recipes, setRecipes] = useState([]);
@@ -33,7 +34,7 @@ function RecipeDashboard(props) {
         return(
             <div>
                 <RecipeList recipeCards={recipeCards} />
-                <AddButton path="/create"/>
+                <BasicBigButton hover icon={<PostAddIcon fontSize="large" color="secondary" />} action={{href: "/create"}}/>
             </div>
         );
     } else {

@@ -2,7 +2,6 @@ import { IconButton } from '@material-ui/core';
 import React from 'react';
 
 import { Card } from '@material-ui/core';
-import PostAddIcon from '@material-ui/icons/PostAdd';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 export default function AddButton(props) {
@@ -25,9 +24,9 @@ export default function AddButton(props) {
     const classes = useStyles();
 
     return(
-        <Card raised className={classes.square}>
-            <IconButton className={classes.icon} href="/create">
-                <PostAddIcon fontSize="large" color="secondary" />
+        <Card variant={props.hover ? "elevation" : "outlined"} raised={props.hover} className={classes.square}>
+            <IconButton className={classes.icon} {...props.action}>
+                {props.icon}
             </IconButton>
         </Card>
     )
