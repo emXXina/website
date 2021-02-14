@@ -6,7 +6,7 @@ import FinishingPage from './FinishingPage';
 
 export default function RecipeCreator() {
     const steps = ['Grundlegende Eigenschaften', 'Zutaten', 'Zubereitung', 'Fertig?'];
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
     
     function getContent(step) {
         switch(step) {

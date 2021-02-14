@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Ingredient from "./Ingredient";
 import BasicBigButton from "../utils/BasicBigButton";
 import AddIcon from '@material-ui/icons/Add';
-import { GridList, GridListTile } from '@material-ui/core';
+import { GridList, GridListTile, Typography } from '@material-ui/core';
 
 function AddIngredients() {
     const useStyles = makeStyles({
@@ -15,7 +15,7 @@ function AddIngredients() {
 
     // add all available ingredient categories to this state
     const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
-    const [categories, setCategories] = useState(["---", "Teig"]);
+    const [categories, setCategories] = useState(["---", ""]);
     const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
     const [ingredients, setIngredients] = useState([basicIngredient]);
 
@@ -54,6 +54,11 @@ function AddIngredients() {
 
     return(
         <form>
+            <Typography paragraph>
+                Wenn du möchtest, kannst du deine Zutaten in Kategorien aufteilen wie zum Beispiel "Teig" und
+                "Belag". Solltest du das nicht brauchen, dann lass die Zutatenkategorie bei deinen Zutaten einfach
+                bei "---".
+            </Typography>
             <GridList cellHeight="auto" cols={1} spacing={0}>
                 {getTiles()}
             </GridList>
