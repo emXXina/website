@@ -52,25 +52,35 @@ export default function Instruction(props) {
             case 1:
                 return <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
                     {getInstruction().state.map((toBeMixedIngredient, idx) => {
-                        return <TextField
-                        name="ingredients"
-                        select
-                        variant="outlined"
-                        label="Zutat"
-                        key={idx}
-                        onChange={event => {
-                            console.log(getInstruction().state);
-                            const newState = getInstruction().state;
-                            newState[idx] = event.target.value;
-                            props.setInstruction(props.idx, "state", newState);
-                            console.log(getInstruction().state);
-                        }}
-                        value={toBeMixedIngredient} 
-                        >
-                            {props.getIngredients().map((ingredient, idx) => (
-                                <MenuItem value={ingredient.name} key={idx}>{ingredient.name}</MenuItem>
-                            ))}
-                        </TextField>;
+                        return <div>
+                                <TextField
+                                    name="ingredients"
+                                    select
+                                    variant="outlined"
+                                    label="Zutat"
+                                    key={idx}
+                                    onChange={event => {
+                                        console.log(getInstruction().state);
+                                        const newState = getInstruction().state;
+                                        newState[idx] = event.target.value;
+                                        props.setInstruction(props.idx, "state", newState);
+                                        console.log(getInstruction().state);
+                                    }}
+                                    value={toBeMixedIngredient} 
+                                    >
+                                        {props.getIngredients().map((ingredient, idx) => (
+                                            <MenuItem value={ingredient.name} key={idx}>{ingredient.name}</MenuItem>
+                                        ))}
+                                </TextField>                
+                                { (getInstruction().state.length > 2) &&
+                                    <IconButton onClick={event => {
+                                        getInstruction().state.splice(idx, 1);
+                                        props.setInstruction(props.idx, "state", getInstruction().state.slice());
+                                    }}>
+                                        <HighlightOffIcon/>
+                                    </IconButton>
+                                }                                 
+                            </div>;
                     })}
                     <IconButton onClick={handleAddButton} className={classes.icon}>
                         <AddIcon fontSize="small"/>
@@ -86,11 +96,9 @@ export default function Instruction(props) {
             case 0:
                 throw new Error("Can not handle add button for " + getTemplateName(getInstruction().template));
             case 1:
-                console.log(getInstruction().state);
                 var newState = getInstruction().state;
                 newState.push(props.getIngredients()[0].name);
                 props.setInstruction(props.idx, "state", newState);
-                console.log(getInstruction().state);
                 break;
             default:
                 throw new Error("Invalid template (Nr 4): " + getInstruction().template);                
