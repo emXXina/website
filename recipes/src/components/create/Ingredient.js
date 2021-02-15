@@ -70,7 +70,7 @@ export default function Ingredient(props) {
                 value={props.getIngredient(idx).unit}
             >
                 {props.units.map((unit, idx) => (
-                    <MenuItem value={unit} kex={idx}>{unit}</MenuItem>
+                    <MenuItem value={unit} key={idx}>{unit}</MenuItem>
                 ))}
             </TextField>
         </div>
