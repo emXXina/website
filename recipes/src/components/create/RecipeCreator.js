@@ -9,15 +9,16 @@ export default function RecipeCreator() {
     const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorie', 'Zutaten', 'Zubereitung', 'Fertig?'];
     const [activeStep, setActiveStep] = useState(0);
 
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
     const [categories, setCategories] = useState(["---"]);
     const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
     const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
     const [ingredients, setIngredients] = useState([basicIngredient]);
 
     // methods to control categories
-    const getCategories = () => {
-        return categories;
-    }
+    const getCategories = () => {return categories}
+
     const addCategory = () => {        
         categories.push("");
         setCategories(categories.slice());
@@ -36,13 +37,9 @@ export default function RecipeCreator() {
         setIngredients(ingredients.slice());
     }
 
-    const getIngredient = (idx) => {
-        return ingredients[idx];
-    }
+    const getIngredient = (idx) => {return ingredients[idx]}
 
-    const getIngredients = () => {
-        return ingredients;
-    }
+    const getIngredients = () => {return ingredients}
                                             
     const addIngredient = () => {
         ingredients.push(basicIngredient);
@@ -54,7 +51,12 @@ export default function RecipeCreator() {
     function getContent(step) {
         switch(step) {
             case 0:
-                return <AddFundamentals/>;
+                return <AddFundamentals
+                            setName={setName}
+                            name={name}
+                            setDescription={setDescription}
+                            description={description} 
+                        />;
             case 1:
                 return <AddIngredientCategories
                             classes={classes}

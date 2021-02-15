@@ -2,15 +2,14 @@ import React from 'react';
 import { TextField, Typography } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-export default function AddFundamentals() {
+export default function AddFundamentals(props) {
 
     const theme = useTheme();
     const useStyles = makeStyles({
         form: {
             '& .MuiTextField-root': {
                 margin: theme.spacing(1),
-                marginLeft: 0,
-                textAlign: 'center'
+                marginLeft: 0
             }
         }
     })
@@ -29,13 +28,17 @@ export default function AddFundamentals() {
                     required
                     variant="outlined"
                     id="name"
-                    label="Name" />
+                    label="Name"
+                    onChange={event => props.setName(event.target.value)}
+                    value={props.name} />
                 <TextField
                     className={classes.fullWidth}
                     fullWidth
                     variant="outlined"
                     id="description"
-                    label="Kurzbeschreibung" />
+                    label="Kurzbeschreibung"
+                    onChange={event => props.setDescription(event.target.value)}
+                    value={props.description} />
             </form>
         </div>
     );
