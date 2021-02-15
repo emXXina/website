@@ -4,6 +4,7 @@ import AddFundamentals from './AddFundamentals';
 import AddIngredientCategories from './AddIngredientCategories';
 import AddIngredients from './AddIngredients';
 import FinishingPage from './FinishingPage';
+import AddInstructions from './AddInstructions';
 
 export default function RecipeCreator() {
     const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorie', 'Zutaten', 'Zubereitung', 'Fertig?'];
@@ -15,6 +16,9 @@ export default function RecipeCreator() {
     const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
     const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
     const [ingredients, setIngredients] = useState([basicIngredient]);
+    const instructionTemplates = [0, 1];
+    const basicInstruction = {template: instructionTemplates[0], text: '', state: []}
+    const [instructions, setInstructions] = useState([basicInstruction]);
 
     // methods to control categories
     const getCategories = () => {return categories}
@@ -45,7 +49,21 @@ export default function RecipeCreator() {
         ingredients.push(basicIngredient);
         setIngredients(ingredients.slice());
     };
-    
+
+    // methos to control instructions
+    const getInstruction = (idx) => {return instructions[idx]}
+    const getInstructions = () => {return instructions}
+    const addInstruction = () => {
+        instructions.push(basicInstruction);
+        setInstruction(instructions.slice());
+    }
+    const setInstruction = (idx, attribute, value) => {
+        instructions[idx] = {
+            ...instructions[idx],
+            [attribute]: value
+        };
+        setInstructions(instructions.slice());
+    }
 
     // methods to control stepper
     function getContent(step) {
@@ -75,7 +93,15 @@ export default function RecipeCreator() {
                             addIngredient={addIngredient}
                         />;
             case 3:
-                return "Zubereitung...";
+                return <AddInstructions
+                            classes={classes}
+                            addInstruction={addInstruction}
+                            setInstruction={setInstruction}
+                            getInstruction={getInstruction}
+                            getInstructions={getInstructions}
+                            templates={instructionTemplates}
+                            getIngredients={getIngredients}
+                        />;
             case 4:
                 return <FinishingPage/>;
             default:
