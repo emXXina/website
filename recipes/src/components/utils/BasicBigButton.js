@@ -4,7 +4,7 @@ import React from 'react';
 import { Card } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-export default function AddButton(props) {
+export default function BasicBigButton(props) {
     const theme = useTheme();
     const useStyles = makeStyles({
         square: {
