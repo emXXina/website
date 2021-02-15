@@ -1,22 +1,80 @@
 import React, { useState } from 'react';
 import { Card, Button, Typography, CardContent, MobileStepper, Divider, makeStyles, useTheme  } from '@material-ui/core';
 import AddFundamentals from './AddFundamentals';
+import AddIngredientCategories from './AddIngredientCategories';
 import AddIngredients from './AddIngredients';
 import FinishingPage from './FinishingPage';
 
 export default function RecipeCreator() {
-    const steps = ['Grundlegende Eigenschaften', 'Zutaten', 'Zubereitung', 'Fertig?'];
+    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorie', 'Zutaten', 'Zubereitung', 'Fertig?'];
     const [activeStep, setActiveStep] = useState(0);
+
+    const [categories, setCategories] = useState(["---"]);
+    const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
+    const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
+    const [ingredients, setIngredients] = useState([basicIngredient]);
+
+    // methods to control categories
+    const getCategories = () => {
+        return categories;
+    }
+    const addCategory = () => {        
+        categories.push("");
+        setCategories(categories.slice());
+    }
+    const renameCategory = (idx, value) => {
+        categories[idx] = value;
+        setCategories(categories.slice());
+    }
+
+    // methods to control ingredients
+    const setIngredient = (idx, attribute, value) => {
+        ingredients[idx] = {
+            ...ingredients[idx],
+            [attribute]: value
+        };
+        setIngredients(ingredients.slice());
+    }
+
+    const getIngredient = (idx) => {
+        return ingredients[idx];
+    }
+
+    const getIngredients = () => {
+        return ingredients;
+    }
+                                            
+    const addIngredient = () => {
+        ingredients.push(basicIngredient);
+        setIngredients(ingredients.slice());
+    };
     
+
+    // methods to control stepper
     function getContent(step) {
         switch(step) {
             case 0:
                 return <AddFundamentals/>;
             case 1:
-                return <AddIngredients/>;
+                return <AddIngredientCategories
+                            classes={classes}
+                            getCategories={getCategories}
+                            addCategory={addCategory}
+                            renameCategory={renameCategory}
+                        />;
             case 2:
-                return "Zubereitung...";
+                return <AddIngredients
+                            classes={classes}
+                            units={units}
+                            getCategories={getCategories}
+                            setIngredient={setIngredient}
+                            getIngredient={getIngredient}
+                            getIngredients={getIngredients}
+                            addIngredient={addIngredient}
+                        />;
             case 3:
+                return "Zubereitung...";
+            case 4:
                 return <FinishingPage/>;
             default:
                 return "Das sollte nicht passieren.";
@@ -60,6 +118,25 @@ export default function RecipeCreator() {
         stepper: {
             padding: 0,
             backgroundColor: theme.palette.common.white
+        },
+        tile: {
+            marginBottom: "1rem"
+        },
+        container: {
+            borderRadius: theme.shape.borderRadius,
+            borderColor: theme.palette.divider,
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            padding: '.4rem',
+            background: theme.palette.background.default,
+            display: 'block',
+            '& .MuiTextField-root': {
+                margin: theme.spacing(1),
+                marginLeft: 0
+            },
+            '& .MuiSelect-root': {
+                width: '200px'
+            }
         }
     });
     const classes = useStyles();
