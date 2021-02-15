@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextField, MenuItem, IconButton, useTheme, makeStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 export default function Instruction(props) {
     const theme = useTheme();
@@ -98,21 +99,28 @@ export default function Instruction(props) {
 
     return(
         <div className={props.classes.container}>
-            <TextField
-                name="template"
-                select
-                variant="outlined"
-                label="Vorlage"
-                onChange={event => {
-                    props.setInstruction(props.idx, event.target.name, event.target.value);
-                    initializeState(event.target.value);
-                }}
-                value={getInstruction().template}
-            >
-                {props.templates.map((template, idx) => (
-                    <MenuItem value={template} key={idx}>{getTemplateName(template)}</MenuItem>
-                ))} 
-            </TextField><br/>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+                <TextField
+                    name="template"
+                    select
+                    variant="outlined"
+                    label="Vorlage"
+                    onChange={event => {
+                        props.setInstruction(props.idx, event.target.name, event.target.value);
+                        initializeState(event.target.value);
+                    }}
+                    value={getInstruction().template}
+                >
+                    {props.templates.map((template, idx) => (
+                        <MenuItem value={template} key={idx}>{getTemplateName(template)}</MenuItem>
+                    ))} 
+                </TextField>                
+                { (props.getInstructions().length > 1) &&
+                    <IconButton onClick={event => props.removeInstruction(props.idx)}>
+                        <HighlightOffIcon/>
+                    </IconButton>
+                }    
+            </div>
             {getContent(getInstruction().template)}
         </div>
     );

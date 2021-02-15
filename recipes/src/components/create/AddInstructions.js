@@ -15,8 +15,11 @@ export default function AddInstructions(props) {
                         classes={props.classes}
                         setInstruction={props.setInstruction}
                         getInstruction={props.getInstruction}
+                        getInstructions={props.getInstructions}
+                        removeInstruction={props.removeInstruction}
                         templates={props.templates}
                         getIngredients={props.getIngredients}
+                        
                     />
                 </GridListTile>
                 );

@@ -76,6 +76,11 @@ export default function RecipeCreator() {
         setInstructions(instructions.slice());
     }
 
+    const removeInstruction = (idx) => {
+        instructions.splice(idx, 1);
+        setInstructions(instructions.slice());
+    }
+
     // methods to control stepper
     function getContent(step) {
         switch(step) {
@@ -112,6 +117,7 @@ export default function RecipeCreator() {
                             setInstruction={setInstruction}
                             getInstruction={getInstruction}
                             getInstructions={getInstructions}
+                            removeInstruction={removeInstruction}
                             templates={instructionTemplates}
                             getIngredients={getIngredients}
                         />;
