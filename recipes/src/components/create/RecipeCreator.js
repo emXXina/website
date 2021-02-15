@@ -17,7 +17,7 @@ export default function RecipeCreator() {
     const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
     const [ingredients, setIngredients] = useState([basicIngredient]);
     const instructionTemplates = [0, 1];
-    const basicInstruction = {template: instructionTemplates[0], text: '', state: []}
+    const basicInstruction = {template: instructionTemplates[0], text: '', state: ""}
     const [instructions, setInstructions] = useState([basicInstruction]);
 
     // methods to control categories
@@ -74,6 +74,33 @@ export default function RecipeCreator() {
             [attribute]: value
         };
         setInstructions(instructions.slice());
+
+        if (attribute === "state") {
+            switch(instructions[idx].template) {
+                case 0:
+                    instructions[idx] = {
+                        ...instructions[idx],
+                        'text': instructions[idx].state
+                    };
+                    setInstructions(instructions.slice());
+                    break;
+                case 1:
+                    const state = instructions[idx].state;
+                    var text = "Mische "
+                    for (var i = 0; i < state.length - 1; i++) {
+                        text += state[i] + ", ";
+                    }
+                    text += " und " + state[state.length- 1] + ".";
+                    instructions[idx] = {
+                        ...instructions[idx],
+                        'text': text
+                    };
+                    setInstructions(instructions.slice());
+                    break;
+                default:
+                    throw new Error("Invalid template.");
+            }
+        }
     }
 
     const removeInstruction = (idx) => {

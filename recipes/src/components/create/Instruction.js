@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, MenuItem, IconButton, useTheme, makeStyles } from '@material-ui/core';
+import { TextField, MenuItem, IconButton, useTheme, makeStyles, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
@@ -27,10 +27,10 @@ export default function Instruction(props) {
     const initializeState = (template) => {
         switch(template) {
             case 0:
-                props.setInstruction(props.idx, "state", []);
+                props.setInstruction(props.idx, "state", "");
                 break;
             case 1:
-                props.setInstruction(props.idx, "state", [props.getIngredients()[0].name]);
+                props.setInstruction(props.idx, "state", [props.getIngredients()[0].name, props.getIngredients()[0].name]);
                 break;
             default:
                 throw new Error("Invalid template (Nr 2).");
@@ -46,45 +46,48 @@ export default function Instruction(props) {
                     name="text"
                     variant="outlined"
                     label="Zubereitungsschritt"
-                    onChange={event => props.setInstruction(props.idx, "text", event.target.value)}
+                    onChange={event => props.setInstruction(props.idx, "state", event.target.value)}
                     value={getInstruction().text}
                 />;
             case 1:
-                return <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
-                    {getInstruction().state.map((toBeMixedIngredient, idx) => {
-                        return <div>
-                                <TextField
-                                    name="ingredients"
-                                    select
-                                    variant="outlined"
-                                    label="Zutat"
-                                    key={idx}
-                                    onChange={event => {
-                                        console.log(getInstruction().state);
-                                        const newState = getInstruction().state;
-                                        newState[idx] = event.target.value;
-                                        props.setInstruction(props.idx, "state", newState);
-                                        console.log(getInstruction().state);
-                                    }}
-                                    value={toBeMixedIngredient} 
-                                    >
-                                        {props.getIngredients().map((ingredient, idx) => (
-                                            <MenuItem value={ingredient.name} key={idx}>{ingredient.name}</MenuItem>
-                                        ))}
-                                </TextField>                
-                                { (getInstruction().state.length > 2) &&
-                                    <IconButton onClick={event => {
-                                        getInstruction().state.splice(idx, 1);
-                                        props.setInstruction(props.idx, "state", getInstruction().state.slice());
-                                    }}>
-                                        <HighlightOffIcon/>
-                                    </IconButton>
-                                }                                 
-                            </div>;
-                    })}
-                    <IconButton onClick={handleAddButton} className={classes.icon}>
-                        <AddIcon fontSize="small"/>
-                    </IconButton>
+                return <div>
+                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-start'}}>
+                        {getInstruction().state.map((toBeMixedIngredient, idx) => {
+                            return <div>
+                                    <TextField
+                                        name="ingredients"
+                                        select
+                                        variant="outlined"
+                                        label="Zutat"
+                                        key={idx}
+                                        onChange={event => {
+                                            console.log(getInstruction().state);
+                                            const newState = getInstruction().state;
+                                            newState[idx] = event.target.value;
+                                            props.setInstruction(props.idx, "state", newState);
+                                            console.log(getInstruction().state);
+                                        }}
+                                        value={toBeMixedIngredient} 
+                                        >
+                                            {props.getIngredients().map((ingredient, idx) => (
+                                                <MenuItem value={ingredient.name} key={idx}>{ingredient.name}</MenuItem>
+                                            ))}
+                                    </TextField>                
+                                    { (getInstruction().state.length > 2) &&
+                                        <IconButton onClick={event => {
+                                            getInstruction().state.splice(idx, 1);
+                                            props.setInstruction(props.idx, "state", getInstruction().state.slice());
+                                        }}>
+                                            <HighlightOffIcon/>
+                                        </IconButton>
+                                    }                                 
+                                </div>;
+                        })}
+                        <IconButton onClick={handleAddButton} className={classes.icon}>
+                            <AddIcon fontSize="small"/>
+                        </IconButton>
+                    </div>
+                    <Typography>{getInstruction().text}</Typography> 
                 </div>;
             default:
                 throw new Error("Invalid template (Nr 3).")
