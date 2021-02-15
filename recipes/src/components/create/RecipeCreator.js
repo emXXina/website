@@ -27,8 +27,14 @@ export default function RecipeCreator() {
         categories.push("");
         setCategories(categories.slice());
     }
+
     const renameCategory = (idx, value) => {
         categories[idx] = value;
+        setCategories(categories.slice());
+    }
+    
+    const removeCategory = (idx) => {
+        categories.splice(idx, 1)
         setCategories(categories.slice());
     }
 
@@ -81,6 +87,7 @@ export default function RecipeCreator() {
                             getCategories={getCategories}
                             addCategory={addCategory}
                             renameCategory={renameCategory}
+                            removeCategory={removeCategory}
                         />;
             case 2:
                 return <AddIngredients

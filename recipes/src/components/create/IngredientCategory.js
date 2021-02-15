@@ -1,15 +1,17 @@
 import React from "react";
-import { TextField } from '@material-ui/core';
+import { TextField, IconButton, useTheme } from '@material-ui/core';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 export default function IngredientCategory(props) {
     const idx = props.idx;
+    const theme = useTheme();
 
     const handleChange = (event) => {
         props.renameCategory(idx, event.target.value);
     }
 
     return(
-        <div className={props.classes.container}>
+        <div className={props.classes.container} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             <TextField
                 name="name"
                 required
@@ -18,6 +20,11 @@ export default function IngredientCategory(props) {
                 onChange={handleChange}
                 value={props.getCategories()[idx]}
             />
+            { (idx > 0) &&
+                <IconButton onClick={event => props.removeCategory(idx)}>
+                    <HighlightOffIcon/>
+                </IconButton>
+            }
         </div>
     );
 }

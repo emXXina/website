@@ -15,6 +15,7 @@ function AddIngredients(props) {
                         idx={i}
                         getCategories={props.getCategories}
                         renameCategory={props.renameCategory}
+                        removeCategory={props.removeCategory}
                         classes={props.classes}
                     />
                 </GridListTile>
