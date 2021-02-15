@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { MenuItem, TextField } from "@material-ui/core";
+import { MenuItem, TextField, IconButton } from "@material-ui/core";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 export default function Ingredient(props) {
     const theme = useTheme();
@@ -31,14 +32,21 @@ export default function Ingredient(props) {
 
     return(
         <div className={props.classes.container}>
-            <TextField
-                name="name"
-                required
-                variant="outlined"
-                label="Zutatenbezeichnung"
-                onChange={handleChange}
-                value={props.getIngredient(idx).name}
-            /><br/>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+                <TextField
+                    name="name"
+                    required
+                    variant="outlined"
+                    label="Zutatenbezeichnung"
+                    onChange={handleChange}
+                    value={props.getIngredient(idx).name}
+                />
+                { (props.getIngredients().length > 1) &&
+                    <IconButton onClick={event => props.removeIngredient(idx)}>
+                        <HighlightOffIcon/>
+                    </IconButton>
+                }
+            </div>
             <TextField
                 name="category_name"
                 select

@@ -56,6 +56,11 @@ export default function RecipeCreator() {
         setIngredients(ingredients.slice());
     };
 
+    const removeIngredient = (idx) => {
+        ingredients.splice(idx, 1);
+        setIngredients(ingredients.slice());
+    }
+
     // methos to control instructions
     const getInstruction = (idx) => {return instructions[idx]}
     const getInstructions = () => {return instructions}
@@ -98,6 +103,7 @@ export default function RecipeCreator() {
                             getIngredient={getIngredient}
                             getIngredients={getIngredients}
                             addIngredient={addIngredient}
+                            removeIngredient={removeIngredient}
                         />;
             case 3:
                 return <AddInstructions

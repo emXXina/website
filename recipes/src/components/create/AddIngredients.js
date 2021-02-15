@@ -15,8 +15,10 @@ function AddIngredients(props) {
                         idx={i}
                         setIngredient={props.setIngredient}
                         getIngredient={props.getIngredient}
+                        getIngredients={props.getIngredients}
                         classes={props.classes}
                         getCategories={props.getCategories}
+                        removeIngredient={props.removeIngredient}
                     />
                 </GridListTile>
                 );
