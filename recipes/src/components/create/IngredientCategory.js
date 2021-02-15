@@ -11,7 +11,7 @@ export default function IngredientCategory(props) {
     }
 
     return(
-        <div className={props.classes.container} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <div className={props.classes.container} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
             <TextField
                 name="name"
                 required
@@ -20,7 +20,7 @@ export default function IngredientCategory(props) {
                 onChange={handleChange}
                 value={props.getCategories()[idx]}
             />
-            { (idx > 0) &&
+            { props.getCategories().length > 1 &&
                 <IconButton onClick={event => props.removeCategory(idx)}>
                     <HighlightOffIcon/>
                 </IconButton>
