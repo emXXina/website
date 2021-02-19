@@ -24,6 +24,7 @@ exports.create = (req, res) => {
             const recipe_id = data.id;
             createCategoriesAndIngredients(recipe_id, req.body.categories, req.body.ingredients);
             createInstructions(recipe_id, req.body.instructions);
+            res.send(data);
         }
     });
 }
