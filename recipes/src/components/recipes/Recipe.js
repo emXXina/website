@@ -41,7 +41,6 @@ export default function Recipe(props) {
                 <div ref={printComp}>
                     <CardContent>
                         <Typography variant="h2">{recipe.name}</Typography>
-                        <Typography variant="body1">Labels</Typography>
                     </CardContent>
                     <Slider images={imgs}/>
                     <CardContent>

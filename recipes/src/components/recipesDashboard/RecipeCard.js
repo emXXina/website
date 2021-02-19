@@ -21,7 +21,6 @@ class RecipeCard extends React.Component {
         super(props);
         
         this.title = (this.props.title == null) ? "Ohne Titel" : this.props.title;
-        this.labels = (this.props.labels == null) ? "Keine Label" : this.props.labels;
         this.img = (this.props.img == null) ? defaultImg : this.props.img;
         this.id = (this.props.id == null) ? "404" : this.props.id;
     
@@ -36,7 +35,6 @@ class RecipeCard extends React.Component {
                 <CardActionArea href={'/rezept/' + this.id}>
                     <CardContent>
                         <Typography variant="h4" component="h2">{this.title}</Typography>
-                        <Typography variant="body1">{this.labels}</Typography>
                     </CardContent>
                     <CardMedia image={this.img} title="Bild vom Rezept" className="media" />
                 </CardActionArea>
