@@ -165,7 +165,7 @@ export default function RecipeCreator() {
         return(
             <div>
                 {activeStep === (steps.length - 1) ? (
-                    <Button variant="contained" color="primary" onClick={handleNext}>
+                    <Button variant="contained" color="primary" onClick={handleFinish}>
                         Fertig
                     </Button>
                 ) : (
@@ -191,6 +191,30 @@ export default function RecipeCreator() {
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleFinish = () => {
+        // prepare instructions
+        var instructionTexts = [];
+        for (var i in instructions) {
+            instructionTexts.push(instructions[i].text);
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                'name': name,
+                'description': description,
+                'categories': categories,
+                'ingredients': ingredients,
+                'instructions': instructionTexts
+            })
+        };
+
+        fetch('/fullRecipe', requestOptions)
+            .then(response => response.json())
+            .then(data => window.location = `../rezept/${data.id}`);
     };
 
     const theme = useTheme();
