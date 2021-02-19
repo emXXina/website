@@ -23,7 +23,7 @@ app.get('/', function(req, res, next) {
 const recipes = require('./controllers/recipe.controller.js');
 app.post('/recipes', recipes.create);
 app.get('/recipes', recipes.findAll);
-app.get('/recipes/:recipeId', recipes.findOne)
+app.get('/recipes/:recipeId', recipes.findOne);
 
 const ingredients = require('./controllers/ingredients.controller.js');
 app.post('/ingredients', ingredients.create);
@@ -38,6 +38,9 @@ const instructions = require('./controllers/instructions.controller.js');
 app.post('/instructions', instructions.create);
 app.get('/instructions/givenRecipe/:recipeId/givenPosition/:position', instructions.getByRecipeNPosition);
 app.get('/instructions/givenRecipe/:recipeId', instructions.getByRecipeId);
+
+const fullRecipes = require('./controllers/fullRecipe.controller.js');
+app.post('/fullRecipe', fullRecipes.create);
 
 // Since this is the last non-error-handling
 // middleware use(), we assume 404, as nothing else
