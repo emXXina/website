@@ -1,10 +1,9 @@
 import React from "react";
-import { TextField, IconButton, useTheme } from '@material-ui/core';
+import { TextField, IconButton } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 export default function IngredientCategory(props) {
     const idx = props.idx;
-    const theme = useTheme();
 
     const handleChange = (event) => {
         props.renameCategory(idx, event.target.value);

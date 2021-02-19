@@ -12,7 +12,7 @@ export default function RecipeCreator() {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [categories, setCategories] = useState(["---"]);
+    const [categories, setCategories] = useState(["main"]);
     const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
     const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
     const [ingredients, setIngredients] = useState([basicIngredient]);
@@ -149,7 +149,13 @@ export default function RecipeCreator() {
                             getIngredients={getIngredients}
                         />;
             case 4:
-                return <FinishingPage/>;
+                return <FinishingPage
+                            name={name}
+                            description={description}
+                            categories={categories}
+                            ingredients={ingredients}
+                            instructions={instructions}
+                        />;
             default:
                 return "Das sollte nicht passieren.";
         }

@@ -2,7 +2,7 @@ import React from "react";
 import Ingredient from "./Ingredient";
 import BasicBigButton from "../utils/BasicBigButton";
 import AddIcon from '@material-ui/icons/Add';
-import { GridList, GridListTile, Typography } from '@material-ui/core';
+import { GridList, GridListTile } from '@material-ui/core';
 
 function AddIngredients(props) {
     const getIngredientTiles = () => {

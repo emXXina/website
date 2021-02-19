@@ -26,7 +26,7 @@ export default function Instructions(props) {
     return(
         <div>
             <Typography variant="h4" className="recipeSubtitle" component="h3">Zubereitung</Typography>
-            <div className="instructionsList">
+            <div>
                 {instructions.map((instruction,i) => {
                     return(
                         <NumberedElement

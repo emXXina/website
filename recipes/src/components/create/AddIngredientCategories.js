@@ -29,7 +29,7 @@ function AddIngredients(props) {
             <Typography paragraph>
                 Wenn du möchtest, kannst du deine Zutaten in Kategorien aufteilen wie zum Beispiel "Teig" und
                 "Belag". Solltest du das nicht brauchen, dann lass die Zutatenkategorie bei deinen Zutaten einfach
-                bei "---".
+                bei "main".
             </Typography>
             <GridList cellHeight="auto" cols={1} spacing={0}>
                 {getCategoryTiles()}

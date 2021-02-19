@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { MenuItem, TextField, IconButton } from "@material-ui/core";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 export default function Ingredient(props) {
-    const theme = useTheme();
     const useStyles = makeStyles({
         numberInput: {
             width: '7rem',
