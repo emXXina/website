@@ -37,8 +37,8 @@ export default function FinishingPage(props) {
                         {props.instructions.map((instruction,idx) => {
                             return(
                                 <NumberedElement
-                                    key={idx}
-                                    number={idx}
+                                    key={idx+1}
+                                    number={idx+1}
                                     content={instruction.text}
                                     />
                             );
