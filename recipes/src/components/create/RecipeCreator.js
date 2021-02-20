@@ -13,7 +13,7 @@ export default function RecipeCreator() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [categories, setCategories] = useState(["main"]);
-    const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
+    const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Stück", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
     const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
     const [ingredients, setIngredients] = useState([basicIngredient]);
     const instructionTemplates = [0, 1];
