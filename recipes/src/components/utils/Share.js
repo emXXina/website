@@ -18,10 +18,19 @@ export default function Share(props) {
     const handleOpenSnackbar = () => {setOpenSnackbar(true)};
     const handleCloseSnackbar = () => {setOpenSnackbar(false)};
 
+    const [hover, setHover] = useState(false);
+    const handleHover = () => {setHover(! hover)};
+
     return(
         <div>
-        <IconButton aria-label="Teilen" onClick={handleOpenDialog}>
-            <ShareIcon/>
+        <IconButton
+            aria-label="Teilen"
+            onClick = {handleOpenDialog}
+            color = {hover ? "secondary" : "default"}
+            onMouseEnter = {handleHover}
+            onMouseLeave = {handleHover}
+        >
+            <ShareIcon color={props.color}/>
         </IconButton>
         <Dialog open={openDialog} onClose={handleCloseDialog} aria-labelledby="Link kopieren">
             <DialogTitle>Teilen</DialogTitle>
