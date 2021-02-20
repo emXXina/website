@@ -46,7 +46,7 @@ export default function IngredientTable(props) {
                         <TableRow key={idx}>
                             <TableCell className={classes.bodyCell}>{ingredient.name}</TableCell>
                             <TableCell className={classes.bodyCell}>
-                                {ingredient.quantity + "\u2009" + ingredient.unit}
+                                {ingredient.quantity == 0 ? "" : ingredient.quantity + "\u2009" + ingredient.unit}
                             </TableCell>
                         </TableRow>
                     )}

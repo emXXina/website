@@ -2,7 +2,7 @@ import React from "react";
 import Ingredient from "./Ingredient";
 import BasicBigButton from "../utils/BasicBigButton";
 import AddIcon from '@material-ui/icons/Add';
-import { GridList, GridListTile } from '@material-ui/core';
+import { GridList, GridListTile, Typography } from '@material-ui/core';
 
 function AddIngredients(props) {
     const getIngredientTiles = () => {
@@ -28,6 +28,10 @@ function AddIngredients(props) {
 
     return(
         <form>
+            <Typography paragraph>
+                Soll eine Zutat einfach nach Belieben hinzugefügt werden oder du möchtest aus einem anderen Grund
+                keine Menge angeben, dann gibt einfach eine Menge von 0 aus.
+            </Typography>
             <GridList cellHeight="auto" cols={1} spacing={0}>
                 {getIngredientTiles()}
             </GridList>
