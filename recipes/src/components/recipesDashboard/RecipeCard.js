@@ -2,7 +2,7 @@ import React from 'react';
 
 import '@material/react-card/dist/card.css';
 import "./recipecard.scss";
-import defaultImg from './default.jpg';
+import defaultImg from './default.png';
 
 import { Card, CardMedia, CardContent, CardActionArea, CardActions, Typography } from '@material-ui/core';
 import { Button, IconButton } from '@material-ui/core/';

@@ -2,7 +2,7 @@ import { Card, Typography, CardContent, Divider } from '@material-ui/core';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
-import defaultImg from '../recipesDashboard/default.jpg';
+import defaultImg from '../recipesDashboard/default.png';
 import defaultImg2 from '../navBar/Muffin_200.png';
 import Slider from '../slider/Slider.js';
 import Error from '../utils/Error';
