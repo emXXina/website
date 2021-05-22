@@ -26,7 +26,8 @@ export default function NumberedElement(props) {
             fontWeight: '500'
         },
         content: {
-            marginLeft: '1rem'
+            marginLeft: '1rem',
+            width: '100%'
         }
     });
     const classes = useStyles();
