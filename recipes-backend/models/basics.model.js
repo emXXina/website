@@ -1,29 +1,28 @@
-const sql = require("./db.js");
+const getConnection = require("./db.js");
 
 exports.findByIdInTable = (id, result, table) => {
-    sql.query(`SELECT * FROM ${table} WHERE id = ${id}`, (err, res) => {
+    getConnection().query(`SELECT * FROM ${table} WHERE id = ${id}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
             return;
         }
 
-        if (res.length) {
-            console.log(`found in ${table}: `, res[0]);
-            result(null, res[0]);
+        if (res.length == 0) {
+            result({ kind: "not_found"}, null);
             return;
         }
 
-        // not found element in table with the id
-        result({ kind: "not_found"}, null);
+        console.log(`found in ${table}: `, res[0]);
+        result(null, res[0]);
     });
 };
 
 exports.getAll = (result, table) => {
-    sql.query(`SELECT * FROM ${table}`, (err, res) => {
+    getConnection().query(`SELECT * FROM ${table}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
     
@@ -33,10 +32,10 @@ exports.getAll = (result, table) => {
 }
 
 exports.getAllWhere = (result, table, condition) => {
-    sql.query(`SELECT * FROM ${table} WHERE ${condition}`, (err, res) => {
+    getConnection().query(`SELECT * FROM ${table} WHERE ${condition}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
             return;
         }
 
@@ -46,7 +45,7 @@ exports.getAllWhere = (result, table, condition) => {
 }
 
 exports.create = (result, table, newItem) => {
-    sql.query(`INSERT INTO ${table} SET ?`, newItem, (err, res) => {
+    getConnection().query(`INSERT INTO ${table} SET ?`, newItem, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);

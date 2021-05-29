@@ -10,20 +10,17 @@ exports.resultHandling = (req, res, msg404, msg500) => {
 
 exports.errorHandling = (req, res, err, msg404, msg500) => {
     if (err.kind === "not_found") {
-        res.status(404).send({
-            message:  err.message || msg404
-        });
+        res.status(404).send({});
+        console.log(msg404 + " :\n" + err.message);
     } else {
-        res.status(500).send({
-            message:  err.message || msg500
-        });
+        res.status(500).send({});
+        console.log(msg500 + " :\n" + err.message);
     }
 };
 
 exports.checkReqBody = (req, res) => {
     if (!req.body) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
+        res.status(400).send();
+        console.log("Request body can not be empty!");
     }
 }

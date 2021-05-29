@@ -1,6 +1,6 @@
 module.exports = {
-    HOST: 'localhost',
-    USER: 'www',
-    PASSWORD: 'LieberWeihnachtsmann20!',
-    DB: 'recipes_base'    
+    host: 'localhost',
+    user: 'www',
+    password: 'LieberWeihnachtsmann20!',
+    database: 'recipes_base'    
 };

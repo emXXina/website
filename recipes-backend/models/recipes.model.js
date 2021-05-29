@@ -1,4 +1,3 @@
-const sql = require("./db.js");
 const basics = require('./basics.model');
 
 // constructor
