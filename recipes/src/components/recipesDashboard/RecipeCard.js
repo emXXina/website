@@ -27,7 +27,7 @@ export default function RecipeCard(props) {
         <Card raised className="card">
             <CardActionArea href={'/rezept/' + id}>
                 <CardContent>
-                    <Typography variant="h4" component="h2">{title}</Typography>
+                    <Typography variant="h5" component="h2">{title}</Typography>
                 </CardContent>
                 <CardMedia image={img} title="Bild vom Rezept" className="media" />
             </CardActionArea>
