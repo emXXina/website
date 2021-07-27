@@ -53,7 +53,7 @@ export default function RecipeCard(props) {
                         aria-label="Liken"
                         onMouseEnter = {handleToggleFavorite}
                         onMouseLeave = {handleToggleFavorite}>
-                        <FavoriteIcon color={hoverFavorite ? "secondary" : "default"} />
+                        <FavoriteIcon color={hoverFavorite ? "secondary" : "inherit"} />
                     </IconButton>   
                 </div>
             </CardActions>
