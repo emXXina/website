@@ -3,11 +3,16 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 
 var app = express();
 
-// view engine setup
+
+/**
+ * View engine setup
+ */
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -16,6 +21,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+/**
+ * Configuring CORS and enabling it for all routes
+ */
+
+var corsOptions = {
+  // configures the Access-Control-Allow-Origin CORS header
+  // will accept any request from these origins
+  origin: ['http://finnupa.de:3000', 'https://finnupa.de'],
+  // success status added to handle some legacy browsers (IE11, various Smart TVs) as they don't loke 204
+  optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions)); // use cors on all routes
+
+/**
+ * Routes
+ */
 
 app.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -42,6 +66,7 @@ app.get('/backend/instructions/givenRecipe/:recipeId', instructions.getByRecipeI
 
 const fullRecipes = require('./controllers/fullRecipe.controller.js');
 app.post('/backend/fullRecipe', fullRecipes.create);
+
 
 
 // Since this is the last non-error-handling
