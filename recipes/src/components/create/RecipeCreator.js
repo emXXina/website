@@ -7,7 +7,7 @@ import FinishingPage from './FinishingPage';
 import AddInstructions from './AddInstructions';
 
 export default function RecipeCreator() {
-    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorie', 'Zutaten', 'Zubereitung', 'Fertig?'];
+    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', 'Zutaten', 'Zubereitung', 'Fertig?'];
     const [activeStep, setActiveStep] = useState(0);
 
     const [name, setName] = useState("");
@@ -212,7 +212,7 @@ export default function RecipeCreator() {
             })
         };
 
-        fetch('/fullRecipe', requestOptions)
+        fetch('https://finnupa.de/backend/fullRecipe', requestOptions)
             .then(response => response.json())
             .then(data => window.location = `../rezept/${data.id}`);
     };
