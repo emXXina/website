@@ -10,7 +10,7 @@ export default function Ingredients(props) {
     // update categories
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        fetch(`/ingredient_categories/givenRecipe/${id}`).then(res => {
+        fetch(`https://finnupa.de/backend/ingredient_categories/givenRecipe/${id}`).then(res => {
             if (res.ok) {
                 return res.json();
             }
@@ -21,7 +21,7 @@ export default function Ingredients(props) {
     const [ingredients, setIngredients] = useState(new Map());
     useEffect(() => {
         categories.forEach( (category) =>
-            fetch(`/ingredients/givenCategory/${category.id}`).then(res => {
+            fetch(`https://finnupa.de/backend/ingredients/givenCategory/${category.id}`).then(res => {
                 if (res.ok) {
                     return res.json();
                 }

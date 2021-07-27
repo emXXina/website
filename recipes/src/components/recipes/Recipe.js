@@ -16,7 +16,7 @@ export default function Recipe(props) {
     const [valid, setValid] = useState(true);
     const [recipe, setRecipe] = useState({});
     useEffect(() => {
-        fetch(`/recipes/${id}`).then(res => {
+        fetch(`https://finnupa.de/backend/recipes/${id}`).then(res => {
             if (res.ok) {
                 return res.json();
             } else {

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 var app = express();
 
 // view engine setup
@@ -21,26 +22,27 @@ app.get('/', function(req, res, next) {
 });
 
 const recipes = require('./controllers/recipe.controller.js');
-app.post('/recipes', recipes.create);
-app.get('/recipes', recipes.findAll);
-app.get('/recipes/:recipeId', recipes.findOne);
+app.post('/backend/recipes', recipes.create);
+app.get('/backend/recipes', recipes.findAll);
+app.get('/backend/recipes/:recipeId', recipes.findOne);
 
 const ingredients = require('./controllers/ingredients.controller.js');
-app.post('/ingredients', ingredients.create);
-app.get('/ingredients/givenCategory/:categoryId', ingredients.findByCategoryId);
+app.post('/backend/ingredients', ingredients.create);
+app.get('/backend/ingredients/givenCategory/:categoryId', ingredients.findByCategoryId);
 
 const ingredientCategories = require('./controllers/ingredient_categories.controller.js');
-app.get('/ingredient_categories/givenRecipe/:recipeId', ingredientCategories.findWithRecipeId);
-app.get('/ingredient_categories/:categoryId', ingredientCategories.findOne);
-app.post('/ingredient_categories', ingredientCategories.create);
+app.get('/backend/ingredient_categories/givenRecipe/:recipeId', ingredientCategories.findWithRecipeId);
+app.get('/backend/ingredient_categories/:categoryId', ingredientCategories.findOne);
+app.post('/backend/ingredient_categories', ingredientCategories.create);
 
 const instructions = require('./controllers/instructions.controller.js');
-app.post('/instructions', instructions.create);
-app.get('/instructions/givenRecipe/:recipeId/givenPosition/:position', instructions.getByRecipeNPosition);
-app.get('/instructions/givenRecipe/:recipeId', instructions.getByRecipeId);
+app.post('/backend/instructions', instructions.create);
+app.get('/backend/instructions/givenRecipe/:recipeId/givenPosition/:position', instructions.getByRecipeNPosition);
+app.get('/backend/instructions/givenRecipe/:recipeId', instructions.getByRecipeId);
 
 const fullRecipes = require('./controllers/fullRecipe.controller.js');
-app.post('/fullRecipe', fullRecipes.create);
+app.post('/backend/fullRecipe', fullRecipes.create);
+
 
 // Since this is the last non-error-handling
 // middleware use(), we assume 404, as nothing else

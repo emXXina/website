@@ -10,7 +10,7 @@ function RecipeDashboard(props) {
     const [recipes, setRecipes] = useState([]);
     const [connected, setConnected] = useState(false);
     useEffect(() => {
-        fetch('/recipes').then(res => {
+        fetch('https://finnupa.de/backend/recipes').then(res => {
             if (res.ok) {
                 return res.json();
             }

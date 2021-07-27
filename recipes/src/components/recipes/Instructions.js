@@ -7,7 +7,7 @@ export default function Instructions(props) {
 
     const [instructions, setInstructions] = useState([]);
     useEffect(() => {
-        fetch(`/instructions/givenRecipe/${id}`).then(res => {
+        fetch(`https://finnupa.de/backend/instructions/givenRecipe/${id}`).then(res => {
             if (res.ok) {
                 return res.json();
             }
