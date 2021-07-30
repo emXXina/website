@@ -2,7 +2,6 @@
  * Create server
  */
 const express = require('express');
-const { request, response } = require('../recipes-backend/app');
 const app = express();
 
 /**
