@@ -30,3 +30,13 @@ app.get('/', (request, response) => {
 app.post('/quotes', (request, response) => {
     console.log(request.body);
 })
+
+/**
+ * Connect to MongoDB
+ */
+const MongoClient = require('mongodb').MongoClient;
+const configuration = require('./config/mongoDB');
+MongoClient.connect(configuration, (error, client) => {
+    if (error) return console.error(error);
+    console.log('Successfully connected to MongoDB db.');
+})
