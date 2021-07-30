@@ -19,7 +19,7 @@ app.listen(port, () => {
 app.use(express.urlencoded({ extended: true })); 
 
 /**
- * Handle requests
+ * Handle requests without database access
  */
 app.get('/', (request, response) => {
     // sendFile tells express to serve the index.html file
@@ -27,16 +27,27 @@ app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html');
 })
 
-app.post('/quotes', (request, response) => {
-    console.log(request.body);
-})
 
 /**
  * Connect to MongoDB
  */
 const MongoClient = require('mongodb').MongoClient;
-const configuration = require('./config/mongoDB');
-MongoClient.connect(configuration, (error, client) => {
-    if (error) return console.error(error);
-    console.log('Successfully connected to MongoDB db.');
+const dbConfig = require('./config/mongoDB');
+
+let database;
+
+MongoClient.connect(dbConfig.url, (error, client) => {
+    if (error) {
+        return console.error(error)
+    };
+
+    database = client.db(dbConfig.database);
+    console.log(`Successfully connected to MongoDB to database: ${dbConfig.database}.`);
+
+    /**
+     * Handle requests which require a database
+     */
+    app.post('/quotes', (request, response) => {
+        response.send(request.body);
+    })
 })
