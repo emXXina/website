@@ -13,7 +13,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 
 export default function RecipeCard(props) {
-    const title = (props.title == null) ? "Ohne Titel" : props.title;
+    const title = (props.title == null || props.title === "") ? "Ohne Titel" : props.title;
     const img = (props.img == null) ? defaultImg : props.img;
     const id = (props.id == null) ? "404" : props.id;
 

@@ -1,27 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Typography } from '@material-ui/core';
 import NumberedElement from '../utils/NumberedElement';
 
 export default function Instructions(props) {
-    const id = props.id;
-
-    const [instructions, setInstructions] = useState([]);
-    useEffect(() => {
-        fetch(`https://finnupa.de/backend/instructions/givenRecipe/${id}`).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-        }).then(jsonRes => {
-            jsonRes.sort(function(a,b) {
-                if (a.position < b.position) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            });
-            setInstructions(jsonRes);
-        });
-    }, [id]);
+    const instructions = props.instructions || [];
 
     return(
         <div>
@@ -30,8 +12,8 @@ export default function Instructions(props) {
                 {instructions.map((instruction,i) => {
                     return(
                         <NumberedElement
-                            key={instruction.position}
-                            number={instruction.position}
+                            key={i+1}
+                            number={i+1}
                             content={instruction.text}
                             />
                     );

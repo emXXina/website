@@ -4,6 +4,7 @@
 const express = require('express');
 const app = express();
 
+
 /**
  * Set up view engine: EJS (Embedded JavaScript)
  * enables use of a template engine to generate HTML
@@ -12,13 +13,26 @@ const app = express();
  */
 app.set('view engine', 'ejs');
 
+
+/**
+ * Create HTTPS server
+ */
+var https = require('https');
+var fs = require('fs');
+var server = https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/archive/finnupa.de/privkey5.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/archive/finnupa.de/fullchain5.pem')
+}, app);
+
+
 /**
  * Enable connection from browsers to server
  */
 const port = process.env.PORT || '3001';
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Listening on port ${port}.`);
 })
+
 
 /**
  * Use middleware
@@ -40,7 +54,7 @@ app.use(cors({                                      // configures CORS and enabl
 /**
  * Connect to MongoDB
  */
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient, ObjectId} = require('mongodb');
 const dbConfig = require('./config/mongoDB');
 
 MongoClient.connect(dbConfig.url, (error, client) => {
@@ -65,6 +79,13 @@ MongoClient.connect(dbConfig.url, (error, client) => {
     })
 
     app.route('/backend/recipe')
+        .get((request, response) => {
+            recipes.find().toArray()
+            .then(result => {
+                response.json(result);
+            })
+            .catch(error => console.log(error))
+        })
         .post((request, response) => {
             recipes.insertOne(request.body)
             .then(result => {
@@ -103,6 +124,20 @@ MongoClient.connect(dbConfig.url, (error, client) => {
                     response.json(`Deleted ${request.body.name} recipe.`);
                 }
                 console.log(result);
+            })
+            .catch(error => console.log(error))
+        })
+
+    app.route('/backend/recipe/:id')
+        .get((request, response) => {
+            const id = request.params.id;
+            console.log(`Retrieving information about recipe with id = ${id}...`);
+
+            const object_id = new ObjectId(id);
+            recipes.find({ _id: object_id }).toArray()
+            .then(result => {
+                console.log(result[0]);
+                response.json(result[0]);
             })
             .catch(error => console.log(error))
         })

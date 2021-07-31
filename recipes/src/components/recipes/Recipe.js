@@ -10,19 +10,22 @@ import RecipeActionBar from './RecipeActionBar';
 import Ingredients from './Ingredients';
 import Instructions from './Instructions';
 
-export default function Recipe(props) {
+import backend from '../../config/backend';
+
+export default function Recipe() {
     let {id} = useParams();
     
     const [valid, setValid] = useState(true);
     const [recipe, setRecipe] = useState({});
     useEffect(() => {
-        fetch(`https://finnupa.de/backend/recipes/${id}`).then(res => {
-            if (res.ok) {
-                return res.json();
+        fetch(`${backend}/recipe/${id}`).then(response => {
+            if (response.ok) {
+                return response.json();
             } else {
                 return setValid(false);
             }
-        }).then(jsonRes => setRecipe(jsonRes));
+        })
+        .then(responseInJson => setRecipe(responseInJson))
     }, [id]);
 
     const printComp = useRef();
@@ -33,7 +36,6 @@ export default function Recipe(props) {
         )
     } else {    
         let imgs = [defaultImg, defaultImg2, defaultImg, defaultImg2];
-    
         return(
             <Card className="big-card">
                 <RecipeActionBar print={printComp}/>
@@ -48,11 +50,11 @@ export default function Recipe(props) {
                     </CardContent>
                     <Divider variant="fullWidth"/>
                     <CardContent>
-                        <Ingredients id={id}/>
+                        <Ingredients ingredientsInCategories={recipe.ingredientsInCategories}/>
                     </CardContent>
                     <Divider variant="fullWidth"/>
                     <CardContent>
-                        <Instructions id={id}/>
+                        <Instructions instructions={recipe.instructions}/>
                     </CardContent>
                 </div>
             </Card>

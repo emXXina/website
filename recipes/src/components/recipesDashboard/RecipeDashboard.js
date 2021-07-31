@@ -6,15 +6,19 @@ import Error from '../utils/Error';
 import BasicBigButton from '../utils/BasicBigButton';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 
+import backend from '../../config/backend';
+
 function RecipeDashboard(props) {
     const [recipes, setRecipes] = useState([]);
     const [connected, setConnected] = useState(false);
     useEffect(() => {
-        fetch('https://finnupa.de/backend/recipes').then(res => {
+        fetch(`${backend}/recipe`).then(res => {
             if (res.ok) {
                 return res.json();
             }
-        }).then(jsonRes => setRecipes(jsonRes));
+        })
+        .then(jsonRes => setRecipes(jsonRes))
+        .catch(error => setConnected(false))
     }, []);
 
     const [recipeCards, setRecipeCards] = useState([]);
@@ -24,7 +28,7 @@ function RecipeDashboard(props) {
         } else {    
             setRecipeCards(
                 recipes.map((recipe) => 
-                <RecipeCard key={recipe.id} id={recipe.id} title={recipe.name} />)
+                <RecipeCard key={recipe._id} id={recipe._id} title={recipe.name} />)
             );
             setConnected(true);
         }
