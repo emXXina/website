@@ -27,15 +27,17 @@ export default function FinishingPage(props) {
                     {props.ingredientsInCategories.map((category, idx) => {
                         const ingredientTable = <IngredientTable key={idx} heading={category.name}  ingredients={category.ingredients}/>;
                         if (category.name === "") {
-                            return(<Alert severity="error">Achtung: Eine Zutatenkategorie hat keinen Namen.</Alert>);
+                            return(<Alert key={idx} severity="error">Achtung: Eine Zutatenkategorie hat keinen Namen.</Alert>);
                         } else if (category.ingredients === undefined || category.ingredients === []) {
-                            return(<Alert severity="error">Achtung: Die Kategorie &bdquo;{category.name}&ldquo; enthält keine Zutaten.</Alert>)
+                            return(<Alert key={idx} severity="error">Achtung: Die Kategorie &bdquo;{category.name}&ldquo; enthält keine Zutaten.</Alert>)
                         } else if (category.ingredients.some((ingredient) => ingredient.name === "")) {
-                            return([ 
-                                <Alert severity="error">Achtung: Eine Zutat der folgenden Kategorie ({category.name}) hat keinen Namen.</Alert>,
-                                <br></br>,
-                                ingredientTable
-                            ]);
+                            return(
+                                <div key={idx}>
+                                    <Alert severity="error">Achtung: Eine Zutat der folgenden Kategorie ({category.name}) hat keinen Namen.</Alert>
+                                    <br></br>
+                                    {ingredientTable}
+                                </div>
+                            );
                         }
                         return(ingredientTable);
                     })}
