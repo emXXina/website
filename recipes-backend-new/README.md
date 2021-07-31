@@ -15,3 +15,9 @@ const requestOptions = {
         'instructions': LIST-OF-STRINGS
     })
 };
+
+to add a new recipe to the recipes collection in the finnupa-de db.
+
+## PUT /backend/recipe
+
+Takes body containing any of the possible options from [POST /backend/recipe] and overrites the entire recipe

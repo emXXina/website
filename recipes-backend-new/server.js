@@ -23,8 +23,9 @@ app.listen(port, () => {
 /**
  * Use middleware
  */
-// urlencoded helps tidying up the request object
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));    // helps tidying up the request object
+app.use(express.json());                            // 'teaches' server to read json
+app.use(express.static('public'));                  // makes 'public' folder accessible to the public
 
 
 /**
@@ -49,17 +50,37 @@ MongoClient.connect(dbConfig.url, (error, client) => {
         recipes.find().toArray()
         .then(result => {
             response.render('index.ejs', {recipes: result});
-            console.log(result);
+            console.log('Retrieved recipes');
         })
         .catch(error => console.log(error))
     })
 
-    app.post('/backend/recipe', (request, response) => {
-        recipes.insertOne(request.body).then(result => {
-            console.log(result);
-        }).catch(error => {
-            console.error(error);
-        });
-        response.redirect('/backend/');
-    })
+    app.route('/backend/recipe')
+        .post((request, response) => {
+            recipes.insertOne(request.body).then(result => {
+                console.log(result);
+            }).catch(error => {
+                console.error(error);
+            });
+            response.redirect('/backend/');
+        })
+        .put((request, response) => {
+            recipes.findOneAndUpdate(
+                { name: 'Test' },   // filters the collection with key-value pairs
+                {
+                    $set: {
+                        name: request.body.name,
+                        description: request.body.description
+                    }
+                },
+                {
+                    upsert: true    // insert a document if no documents can be updated
+                }
+            )
+            .then(result => {
+                console.log(result);
+                response.json('Success');
+            })
+            .catch(error => console.log(error));
+        })
 })
