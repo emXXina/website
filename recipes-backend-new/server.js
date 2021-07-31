@@ -57,11 +57,11 @@ MongoClient.connect(dbConfig.url, (error, client) => {
 
     app.route('/backend/recipe')
         .post((request, response) => {
-            recipes.insertOne(request.body).then(result => {
+            recipes.insertOne(request.body)
+            .then(result => {
                 console.log(result);
-            }).catch(error => {
-                console.error(error);
-            });
+            })
+            .catch(error => console.error(error))
             response.redirect('/backend/');
         })
         .put((request, response) => {
@@ -81,6 +81,20 @@ MongoClient.connect(dbConfig.url, (error, client) => {
                 console.log(result);
                 response.json('Success');
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+        })
+        .delete((request, response) => {
+            recipes.deleteOne(
+                { name: request.body.name },
+            )
+            .then(result => {
+                if (result.deletedCount == 0) {
+                    response.json('No recipe deleted.')
+                } else {
+                    response.json(`Deleted ${request.body.name} recipe.`);
+                }
+                console.log(result);
+            })
+            .catch(error => console.log(error))
         })
 })
