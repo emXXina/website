@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, IconButton } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 export default function IngredientCategory(props) {
     const idx = props.idx;
+    var ingredientsInCategories = props.ingredientsInCategories;
 
     const handleChange = (event) => {
-        props.renameCategory(idx, event.target.value);
+        ingredientsInCategories[idx].name = event.target.value;
+        props.setIngredientsInCategories(ingredientsInCategories.slice());
+    }
+
+    const removeCategory = (idx) => {
+        const obsoleteCategory = ingredientsInCategories[idx];
+        const mainCategory = ingredientsInCategories.find((category) => category.name === "main")
+        if (obsoleteCategory.ingredients !== undefined && mainCategory === undefined) {
+            ingredientsInCategories.push({
+                name: "main",
+                ingredients: obsoleteCategory.ingredients
+            });
+        } else if (obsoleteCategory.ingredients !== undefined) {
+            mainCategory.ingredients = mainCategory.ingredients.concat(obsoleteCategory.ingredients);
+        }
+        ingredientsInCategories.splice(idx, 1);
+        props.setIngredientsInCategories(ingredientsInCategories.slice());
+        console.log(ingredientsInCategories);
     }
 
     return(
@@ -17,10 +35,10 @@ export default function IngredientCategory(props) {
                 variant="outlined"
                 label="Kategoriebezeichnung"
                 onChange={handleChange}
-                value={props.getCategories()[idx]}
+                value={ingredientsInCategories[idx].name}
             />
-            { props.getCategories().length > 1 &&
-                <IconButton onClick={event => props.removeCategory(idx)}>
+            { ingredientsInCategories.length > 1 &&
+                <IconButton onClick={ _ => removeCategory(idx)}>
                     <HighlightOffIcon/>
                 </IconButton>
             }

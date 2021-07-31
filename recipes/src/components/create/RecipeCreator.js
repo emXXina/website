@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Card, Button, Typography, CardContent, MobileStepper, Divider, makeStyles, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions  } from '@material-ui/core';
-import { Alert } from "@material-ui/lab";
+import { Card, Button, Typography, CardContent, MobileStepper, Divider, makeStyles, useTheme } from '@material-ui/core';
 import AddFundamentals from './AddFundamentals';
 import AddIngredientCategories from './AddIngredientCategories';
 import AddIngredients from './AddIngredients';
 import FinishingPage from './FinishingPage';
 import AddInstructions from './AddInstructions';
+import Warning from '../utils/Warning';
 
 export default function RecipeCreator() {
-    const steps = ['Grundlegende Eigenschaften',/*  'Zutatenkategorien', 'Zutaten', 'Zubereitung',*/ 'Fertig?' ];
+    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', /*'Zutaten', 'Zubereitung',*/ 'Fertig?' ];
     const [activeStep, setActiveStep] = useState(0);
 
     const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Stück", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
@@ -134,15 +134,13 @@ export default function RecipeCreator() {
                             setDescription={setDescription}
                             description={description} 
                         />;
-           /*  case 1:
+            case 1:
                 return <AddIngredientCategories
                             classes={classes}
-                            getCategories={getCategories}
-                            addCategory={addCategory}
-                            renameCategory={renameCategory}
-                            removeCategory={removeCategory}
+                            ingredientsInCategories={ingredientsInCategories}
+                            setIngredientsInCategories={setIngredientsInCategories.bind(this)}
                         />;
-            case 2:
+            /* case 2:
                 return <AddIngredients
                             classes={classes}
                             units={units}
@@ -164,7 +162,7 @@ export default function RecipeCreator() {
                             templates={instructionTemplates}
                             getIngredients={getIngredients}
                         />; */
-            case 1:
+            case 2:
                 return <FinishingPage
                             name={name}
                             description={description}
@@ -319,18 +317,7 @@ export default function RecipeCreator() {
                 </div>
             </CardContent>
 
-            <Dialog open={isNoTitleDialogOpen} onClose={closeNoTitleDialog} aria-labelledby="Titel darf nicht leer sein.">
-                    <DialogTitle><Alert severity="error">Kein Titel</Alert></DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Bitte gib deinem Rezept einen Titel. Sollte dir keiner so richtig einfallen dann nimm doch einfach
-                            den Standardnamen für dein Gericht und füge ein &bdquo;à la&ldquo; und deinen Namen hinzu.
-                        </DialogContentText>
-                        <DialogActions>
-                            <Button onClick={closeNoTitleDialog} color="primary" variant="contained" disableElevation>Schließen</Button>
-                        </DialogActions>
-                    </DialogContent>
-            </Dialog>
+            <Warning isOpen={isNoTitleDialogOpen} close={closeNoTitleDialog} />
         </Card>
     )
 }

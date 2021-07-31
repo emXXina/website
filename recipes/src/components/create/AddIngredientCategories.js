@@ -1,27 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import IngredientCategory from "./IngredientCategory";
 import BasicBigButton from "../utils/BasicBigButton";
 import AddIcon from '@material-ui/icons/Add';
 import { GridList, GridListTile, Typography } from '@material-ui/core';
 
 function AddIngredients(props) {
+    const ingredientsInCategories = props.ingredientsInCategories;
+    const classes = props.classes;
+
     const getCategoryTiles = () => {
         var tiles = [];
-        console.log(props.getCategories());
-        for (var i = 0; i < props.getCategories().length; i++) {
+        ingredientsInCategories.map((category, idx) => {
             tiles.push(
-                <GridListTile key={i} className={props.classes.tile}>
+                <GridListTile key={idx} className={classes.tile}>
                     <IngredientCategory
-                        idx={i}
-                        getCategories={props.getCategories}
-                        renameCategory={props.renameCategory}
-                        removeCategory={props.removeCategory}
-                        classes={props.classes}
+                        idx={idx}
+                        ingredientsInCategories={ingredientsInCategories}
+                        classes={classes}
+                        setIngredientsInCategories={props.setIngredientsInCategories}
                     />
                 </GridListTile>
             )
-        }
+        });
         return tiles;
+    }
+
+    const addCategory = () => {
+        ingredientsInCategories.push({ name: "" });
+        props.setIngredientsInCategories(ingredientsInCategories.slice());
+        console.log(ingredientsInCategories);
     }
 
     return(
@@ -34,7 +41,7 @@ function AddIngredients(props) {
             <GridList cellHeight="auto" cols={1} spacing={0}>
                 {getCategoryTiles()}
             </GridList>
-            <BasicBigButton icon={<AddIcon/>} action={{onClick: props.addCategory}}/>
+            <BasicBigButton icon={<AddIcon/>} action={{onClick: addCategory}}/>
         </form>
     );
 }
