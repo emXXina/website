@@ -6,6 +6,7 @@ import AddIngredients from './AddIngredients';
 import FinishingPage from './FinishingPage';
 import AddInstructions from './AddInstructions';
 import Warning from '../utils/Warning';
+import isValidRecipe from './inputValidation';
 
 export default function RecipeCreator() {
     const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', /*'Zutaten', 'Zubereitung',*/ 'Fertig?' ];
@@ -35,24 +36,6 @@ export default function RecipeCreator() {
             state: ""
         }
     ]);
-
-    // methods to control categories
-    /* const getCategories = () => {return categories}
-
-    const addCategory = () => {        
-        categories.push("");
-        setCategories(categories.slice());
-    }
-
-    const renameCategory = (idx, value) => {
-        categories[idx] = value;
-        setCategories(categories.slice());
-    }
-    
-    const removeCategory = (idx) => {
-        categories.splice(idx, 1)
-        setCategories(categories.slice());
-    } */
 
     // methods to control ingredients
     /* const setIngredient = (idx, attribute, value) => {
@@ -206,21 +189,22 @@ export default function RecipeCreator() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const [isNoTitleDialogOpen, setIsNoTitleDialogOpen] = useState(false);
-    const closeNoTitleDialog = () => setIsNoTitleDialogOpen(false)
-    const openNoTitleDialog = () => setIsNoTitleDialogOpen(true)
-
-    const isInvalidRecipe = () => {
-        if (name === "") {
-            openNoTitleDialog();
-            return true;
-        }
-
-        return false;
+    const [isWarningOpen, setIsWarningOpen] = useState(false);
+    const [warningContent, setWarningContent] = useState({});
+    const closeWarning = () => setIsWarningOpen(false)
+    const openWarning = (content, callbackForClosing) => {
+        setWarningContent(content);
+        setIsWarningOpen(true);
     }
 
     const handleFinish = () => {
-        if (isInvalidRecipe()) {
+        const recipe = {
+            name: name,
+            description: description,
+            ingredientsInCategories: ingredientsInCategories,
+            instructions: instructions
+        };
+        if (!isValidRecipe(recipe, openWarning.bind(this))) {
             return;
         }
 
@@ -317,7 +301,7 @@ export default function RecipeCreator() {
                 </div>
             </CardContent>
 
-            <Warning isOpen={isNoTitleDialogOpen} close={closeNoTitleDialog} />
+            <Warning isOpen={isWarningOpen} close={closeWarning} content={warningContent}/>
         </Card>
     )
 }
