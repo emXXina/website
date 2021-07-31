@@ -26,6 +26,15 @@ app.listen(port, () => {
 app.use(express.urlencoded({ extended: true }));    // helps tidying up the request object
 app.use(express.json());                            // 'teaches' server to read json
 app.use(express.static('public'));                  // makes 'public' folder accessible to the public
+var cors = require('cors');
+app.use(cors({                                      // configures CORS and enables it for all routes
+    // configures the Access-Control-Allow-Origin CORS header
+    // will accept any request from these origins
+    origin: ['http://finnupa.de:3000', 'https://finnupa.de'],
+    // success status added to handle some legacy browsers (IE11, various Smart TVs) as they don't loke 204
+    optionsSuccessStatus: 200
+}));
+  
 
 
 /**
@@ -46,7 +55,7 @@ MongoClient.connect(dbConfig.url, (error, client) => {
     /**
      * Handle requests which require a database
      */
-     app.get('/backend/', (request, response) => {
+    app.get('/backend/', (request, response) => {
         recipes.find().toArray()
         .then(result => {
             response.render('index.ejs', {recipes: result});
