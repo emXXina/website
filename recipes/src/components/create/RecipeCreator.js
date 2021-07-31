@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Button, Typography, CardContent, MobileStepper, Divider, makeStyles, useTheme  } from '@material-ui/core';
+import { Card, Button, Typography, CardContent, MobileStepper, Divider, makeStyles, useTheme, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions  } from '@material-ui/core';
+import { Alert } from "@material-ui/lab";
 import AddFundamentals from './AddFundamentals';
 import AddIngredientCategories from './AddIngredientCategories';
 import AddIngredients from './AddIngredients';
@@ -7,21 +8,36 @@ import FinishingPage from './FinishingPage';
 import AddInstructions from './AddInstructions';
 
 export default function RecipeCreator() {
-    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', 'Zutaten', 'Zubereitung', 'Fertig?'];
+    const steps = ['Grundlegende Eigenschaften',/*  'Zutatenkategorien', 'Zutaten', 'Zubereitung',*/ 'Fertig?' ];
     const [activeStep, setActiveStep] = useState(0);
+
+    const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Stück", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
+    const instructionTemplates = [0, 1];
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [categories, setCategories] = useState(["main"]);
-    const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Stück", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
-    const basicIngredient = {name: '', unit: units[0], quantity: '0', category_name: categories[0]};
-    const [ingredients, setIngredients] = useState([basicIngredient]);
-    const instructionTemplates = [0, 1];
-    const basicInstruction = {template: instructionTemplates[0], text: '', state: ""}
-    const [instructions, setInstructions] = useState([basicInstruction]);
+    const [ingredientsInCategories, setIngredientsInCategories] = useState([ 
+        {
+            name: "main",
+            ingredients: [
+                {
+                    name: "", 
+                    unit: units[0],
+                    quantity: 0 
+                }
+            ]
+        }
+    ]);
+    const [instructions, setInstructions] = useState([
+        {
+            template: instructionTemplates[0],
+            text: "",
+            state: ""
+        }
+    ]);
 
     // methods to control categories
-    const getCategories = () => {return categories}
+    /* const getCategories = () => {return categories}
 
     const addCategory = () => {        
         categories.push("");
@@ -36,10 +52,10 @@ export default function RecipeCreator() {
     const removeCategory = (idx) => {
         categories.splice(idx, 1)
         setCategories(categories.slice());
-    }
+    } */
 
     // methods to control ingredients
-    const setIngredient = (idx, attribute, value) => {
+    /* const setIngredient = (idx, attribute, value) => {
         ingredients[idx] = {
             ...ingredients[idx],
             [attribute]: value
@@ -59,10 +75,10 @@ export default function RecipeCreator() {
     const removeIngredient = (idx) => {
         ingredients.splice(idx, 1);
         setIngredients(ingredients.slice());
-    }
+    } */
 
     // methos to control instructions
-    const getInstruction = (idx) => {return instructions[idx]}
+    /* const getInstruction = (idx) => {return instructions[idx]}
     const getInstructions = () => {return instructions}
     const addInstruction = () => {
         instructions.push(basicInstruction);
@@ -106,7 +122,7 @@ export default function RecipeCreator() {
     const removeInstruction = (idx) => {
         instructions.splice(idx, 1);
         setInstructions(instructions.slice());
-    }
+    } */
 
     // methods to control stepper
     function getContent(step) {
@@ -118,7 +134,7 @@ export default function RecipeCreator() {
                             setDescription={setDescription}
                             description={description} 
                         />;
-            case 1:
+           /*  case 1:
                 return <AddIngredientCategories
                             classes={classes}
                             getCategories={getCategories}
@@ -147,13 +163,12 @@ export default function RecipeCreator() {
                             removeInstruction={removeInstruction}
                             templates={instructionTemplates}
                             getIngredients={getIngredients}
-                        />;
-            case 4:
+                        />; */
+            case 1:
                 return <FinishingPage
                             name={name}
                             description={description}
-                            categories={categories}
-                            ingredients={ingredients}
+                            ingredientsInCategories={ingredientsInCategories}
                             instructions={instructions}
                         />;
             default:
@@ -193,12 +208,28 @@ export default function RecipeCreator() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleFinish = () => {
-        // prepare instructions
-        var instructionTexts = [];
-        for (var i in instructions) {
-            instructionTexts.push(instructions[i].text);
+    const [isNoTitleDialogOpen, setIsNoTitleDialogOpen] = useState(false);
+    const closeNoTitleDialog = () => setIsNoTitleDialogOpen(false)
+    const openNoTitleDialog = () => setIsNoTitleDialogOpen(true)
+
+    const isInvalidRecipe = () => {
+        if (name === "") {
+            openNoTitleDialog();
+            return true;
         }
+
+        return false;
+    }
+
+    const handleFinish = () => {
+        if (isInvalidRecipe()) {
+            return;
+        }
+
+        instructions.forEach((instruction) => {
+            delete instruction.template;
+            delete instruction.state;
+        })
 
         const requestOptions = {
             method: 'POST',
@@ -206,15 +237,15 @@ export default function RecipeCreator() {
             body: JSON.stringify({
                 'name': name,
                 'description': description,
-                'categories': categories,
-                'ingredients': ingredients,
-                'instructions': instructionTexts
+                'ingredientsInCategories': ingredientsInCategories,
+                'instructions': instructions
             })
         };
 
-        fetch('https://finnupa.de/backend/fullRecipe', requestOptions)
+        fetch('https://finnupa.de/backend/recipe', requestOptions)
             .then(response => response.json())
-            .then(data => window.location = `../rezept/${data.id}`);
+            .then(data => window.location = `../rezept/${data.id}` )
+            .catch(error => console.log(error))
     };
 
     const theme = useTheme();
@@ -287,6 +318,19 @@ export default function RecipeCreator() {
                     <NextButton />
                 </div>
             </CardContent>
+
+            <Dialog open={isNoTitleDialogOpen} onClose={closeNoTitleDialog} aria-labelledby="Titel darf nicht leer sein.">
+                    <DialogTitle><Alert severity="error">Kein Titel</Alert></DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Bitte gib deinem Rezept einen Titel. Sollte dir keiner so richtig einfallen dann nimm doch einfach
+                            den Standardnamen für dein Gericht und füge ein &bdquo;à la&ldquo; und deinen Namen hinzu.
+                        </DialogContentText>
+                        <DialogActions>
+                            <Button onClick={closeNoTitleDialog} color="primary" variant="contained" disableElevation>Schließen</Button>
+                        </DialogActions>
+                    </DialogContent>
+            </Dialog>
         </Card>
     )
 }

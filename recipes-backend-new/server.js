@@ -89,10 +89,11 @@ MongoClient.connect(dbConfig.url, (error, client) => {
         .post((request, response) => {
             recipes.insertOne(request.body)
             .then(result => {
+                const id = result.insertedId.toHexString();
+                response.json({ id: id });
                 console.log(result);
             })
             .catch(error => console.error(error))
-            response.redirect('/backend/');
         })
         .put((request, response) => {
             recipes.findOneAndUpdate(
