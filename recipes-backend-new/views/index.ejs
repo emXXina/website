@@ -13,5 +13,14 @@
         <input type="text" placeholder="description" name="description">
         <button type="submit">Submit</button>
     </form>
+
+    <ul class="recipes">
+        <% for(var i = 0; i < recipes.length; i++) {%>
+            <li class="recipe">
+                <span><%= recipes[i].name %></span>
+                <span><%= recipes[i].description %></span>
+            </li>
+        <% } %>
+    </ul>
 </body>
 </html>
