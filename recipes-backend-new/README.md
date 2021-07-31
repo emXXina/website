@@ -13,7 +13,8 @@ const requestOptions = {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
         "name": "Feta-Tomatensauce",
-        "description": "Etwas schwerere, aber sehr leckere Tomatensauce.","ingredientsInCategories":[
+        "description": "Etwas schwerere, aber sehr leckere Tomatensauce.",
+        "ingredientsInCategories":[
             {
                 "name":"main",
                 "ingredients":[
