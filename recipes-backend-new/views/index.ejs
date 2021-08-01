@@ -3,39 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Backend</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
     <h1>Backend für finnupa.de</h1>
     <p>Wie auch immer du hierher gelangt bist...?</p>
-
-    <form action="/backend/recipe" method="POST">
-        <input type="text" placeholder="name" name="name">
-        <input type="text" placeholder="description" name="description">
-        <button type="submit">Submit</button>
-    </form>
-
-    <ul class="recipes">
-        <% for(var i = 0; i < recipes.length; i++) {%>
-            <li class="recipe">
-                <span><%= recipes[i].name %></span>
-                <span><%= recipes[i].description %></span>
-            </li>
-        <% } %>
-    </ul>
-
-    <div>
-        <h2>Randomize</h2>
-        <p>Replace first "Test" recipe by some other recipe.</p>
-        <button id="update-button">Replace recipe</button>
-    </div>
-
-    <div>
-        <h2>Remove Random Recipes</h2>
-        <p>Delete one of the random generated recipes.</p>
-        <button id="delete-button">Delete recipe</button>
-        <div id="message"></div>
-    </div>
-
-    <script src="/main.js"></script>
 </body>
 </html>
