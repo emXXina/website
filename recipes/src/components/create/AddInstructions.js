@@ -5,34 +5,33 @@ import BasicBigButton from '../utils/BasicBigButton';
 import Instruction from './Instruction';
 
 export default function AddInstructions(props) {
-    const getInstructionTiles = () => {
-        var tiles = [];
-        for (var i = 0; i < props.getInstructions().length; i++) {
-            tiles.push(
-                <GridListTile key={i} className={props.classes.tile}>
-                    <Instruction
-                        idx={i}
-                        classes={props.classes}
-                        setInstruction={props.setInstruction}
-                        getInstruction={props.getInstruction}
-                        getInstructions={props.getInstructions}
-                        removeInstruction={props.removeInstruction}
-                        templates={props.templates}
-                        getIngredients={props.getIngredients}
-                        
-                    />
-                </GridListTile>
-                );
-        }
-        return tiles;
-    };
+    const addInstruction = () => {
+        props.instructions.push({
+            template: props.templates[0],
+            text: "",
+            state: ""
+        });
+        props.setInstructions(props.instructions.slice());
+    }
 
     return(
         <form>
             <GridList cellHeight="auto" cols={1} spacing={0}>
-                {getInstructionTiles()}
+                {props.instructions.map((instruction, idx) => (
+                    <GridListTile key={idx} className={props.classes.tile}>
+                        <Instruction
+                            idx={idx}
+                            classes={props.classes}
+                            templates={props.templates}
+                            instructions={props.instructions}
+                            setInstructions={props.setInstructions}      
+                            ingredientsInCategories={props.ingredientsInCategories}            
+                            getAllIngredients={props.getAllIngredients}          
+                        />
+                    </GridListTile>
+                ))}
             </GridList>
-            <BasicBigButton icon={<AddIcon/>} action={{onClick: props.addInstruction}} />
+            <BasicBigButton icon={<AddIcon/>} action={{onClick: addInstruction}} />
         </form>
     );
 }

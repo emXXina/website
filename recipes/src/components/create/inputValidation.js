@@ -40,6 +40,16 @@ const isValidRecipe = (recipe, openWarning) => {
         })
         return false;
     }
+    
+    /**
+     * Check instruction
+     */
+    if (recipe.instructions.some((instruction) => instruction.text === "")) {
+        openWarning({
+            errorTitle: "Zubereitungsschritt ohne Text",
+            errorDescription: "Einer deiner Zubereitungsschritte hat keinen Text. Füg entweder Text hinzu oder lösche diesen Zubereitungsschritt."
+        })
+    }
 
     return true;
 }

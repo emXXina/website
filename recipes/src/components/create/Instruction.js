@@ -14,7 +14,14 @@ export default function Instruction(props) {
     });
     const classes = useStyles();
 
-    const getInstruction = () => {return props.getInstruction(props.idx)};
+    const idx = props.idx;
+    const update = () => props.setInstructions(props.instructions.slice());
+
+    const getInstruction = () => props.instructions[idx];
+    const removeInstruction = () => {
+        props.instructions.splice(idx, 1);
+        update();
+    }
 
     const getTemplateName = (template) => {
         switch(template) {
@@ -25,15 +32,49 @@ export default function Instruction(props) {
     }
 
     const initializeState = (template) => {
+        var instruction = getInstruction();
         switch(template) {
             case 0:
-                props.setInstruction(props.idx, "state", "");
+                instruction.state = "";
                 break;
             case 1:
-                props.setInstruction(props.idx, "state", [props.getIngredients()[0].name, props.getIngredients()[0].name]);
+                instruction.state = [props.getAllIngredients()[0].name, props.getAllIngredients()[0].name];
+                instruction.text = getText();
                 break;
             default:
                 throw new Error("Invalid template (Nr 2).");
+        }
+    }
+
+    const getText = () => {
+        const state = getInstruction().state;
+        switch(getInstruction().template) {
+            case 0:
+                return state;
+            case 1: 
+                var text = "Mische "
+                for (var i = 0; i < state.length - 2; i++) {
+                    text += state[i] + ", ";
+                }
+                text += state[state.length - 2] + " und " + state[state.length - 1] + ".";
+                return text;
+            default:
+                throw new Error("Invalid template (Nr 6): " + getInstruction().template);
+        }
+    }
+
+    const handleAddButton = () => {
+        switch(getInstruction().template) {
+            case 0:
+                throw new Error("Can not handle add button for " + getTemplateName(getInstruction().template));
+            case 1:
+                var newState = getInstruction().state;
+                newState.push(props.getAllIngredients()[0].name);
+                getInstruction().state = newState;
+                update();
+                break;
+            default:
+                throw new Error("Invalid template (Nr 4): " + getInstruction().template);                
         }
     }
 
@@ -46,8 +87,12 @@ export default function Instruction(props) {
                     name="text"
                     variant="outlined"
                     label="Zubereitungsschritt"
-                    onChange={event => props.setInstruction(props.idx, "state", event.target.value)}
                     value={getInstruction().text}
+                    onChange={(event) => {
+                        getInstruction().state = event.target.value;
+                        getInstruction().text = event.target.value;
+                        update();
+                    }}
                 />;
             case 1:
                 return <div>
@@ -60,23 +105,23 @@ export default function Instruction(props) {
                                         variant="outlined"
                                         label="Zutat"
                                         key={idx}
-                                        onChange={event => {
-                                            console.log(getInstruction().state);
-                                            const newState = getInstruction().state;
-                                            newState[idx] = event.target.value;
-                                            props.setInstruction(props.idx, "state", newState);
-                                            console.log(getInstruction().state);
-                                        }}
                                         value={toBeMixedIngredient} 
+                                        onChange={event => {
+                                            var newState = getInstruction().state;
+                                            newState[idx] = event.target.value;
+                                            getInstruction().state = newState;
+                                            getInstruction().text = getText(newState);
+                                            update();
+                                        }}
                                         >
-                                            {props.getIngredients().map((ingredient, idx) => (
+                                            {props.getAllIngredients().map((ingredient, idx) => (
                                                 <MenuItem value={ingredient.name} key={idx}>{ingredient.name}</MenuItem>
                                             ))}
                                     </TextField>                
                                     { (getInstruction().state.length > 2) &&
                                         <IconButton onClick={event => {
                                             getInstruction().state.splice(idx, 1);
-                                            props.setInstruction(props.idx, "state", getInstruction().state.slice());
+                                            update();
                                         }}>
                                             <HighlightOffIcon/>
                                         </IconButton>
@@ -94,20 +139,6 @@ export default function Instruction(props) {
         }
     }
 
-    const handleAddButton = () => {
-        switch(getInstruction().template) {
-            case 0:
-                throw new Error("Can not handle add button for " + getTemplateName(getInstruction().template));
-            case 1:
-                var newState = getInstruction().state;
-                newState.push(props.getIngredients()[0].name);
-                props.setInstruction(props.idx, "state", newState);
-                break;
-            default:
-                throw new Error("Invalid template (Nr 4): " + getInstruction().template);                
-        }
-    }
-
     return(
         <div className={props.classes.container}>
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
@@ -116,21 +147,20 @@ export default function Instruction(props) {
                     select
                     variant="outlined"
                     label="Vorlage"
-                    onChange={event => {
-                        props.setInstruction(props.idx, event.target.name, event.target.value);
-                        initializeState(event.target.value);
-                    }}
                     value={getInstruction().template}
+                    onChange={event => {
+                        getInstruction().template = event.target.value;
+                        initializeState(event.target.value);
+                        update();
+                    }}
                 >
                     {props.templates.map((template, idx) => (
                         <MenuItem value={template} key={idx}>{getTemplateName(template)}</MenuItem>
                     ))} 
                 </TextField>                
-                { (props.getInstructions().length > 1) &&
-                    <IconButton onClick={event => props.removeInstruction(props.idx)}>
-                        <HighlightOffIcon/>
-                    </IconButton>
-                }    
+                <IconButton onClick={event => removeInstruction()}>
+                    <HighlightOffIcon/>
+                </IconButton>
             </div>
             {getContent(getInstruction().template)}
         </div>

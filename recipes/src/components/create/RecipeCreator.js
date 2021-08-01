@@ -9,7 +9,7 @@ import Warning from '../utils/Warning';
 import isValidRecipe from './inputValidation';
 
 export default function RecipeCreator() {
-    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', 'Zutaten', /*'Zubereitung',*/ 'Fertig?' ];
+    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', 'Zutaten', 'Zubereitung', 'Fertig?' ];
     const [activeStep, setActiveStep] = useState(0);
 
     const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Stück", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
@@ -37,28 +37,17 @@ export default function RecipeCreator() {
         }
     ]);
 
-    // methods to control ingredients
-    /* const setIngredient = (idx, attribute, value) => {
-        ingredients[idx] = {
-            ...ingredients[idx],
-            [attribute]: value
-        };
-        setIngredients(ingredients.slice());
+    const getAllIngredients = () => {
+        var allIngredients = [];
+        ingredientsInCategories.forEach((category) => {
+            var ingredientsOfThisCategory = category.ingredients;
+            ingredientsOfThisCategory.forEach((ingredient) => {
+                ingredient.category = category.name;
+            })
+            allIngredients = allIngredients.concat(ingredientsOfThisCategory);
+        })
+        return allIngredients;
     }
-
-    const getIngredient = (idx) => {return ingredients[idx]}
-
-    const getIngredients = () => {return ingredients}
-                                            
-    const addIngredient = () => {
-        ingredients.push(basicIngredient);
-        setIngredients(ingredients.slice());
-    };
-
-    const removeIngredient = (idx) => {
-        ingredients.splice(idx, 1);
-        setIngredients(ingredients.slice());
-    } */
 
     // methos to control instructions
     /* const getInstruction = (idx) => {return instructions[idx]}
@@ -129,19 +118,18 @@ export default function RecipeCreator() {
                             units={units}
                             ingredientsInCategories={ingredientsInCategories}
                             setIngredientsInCategories={setIngredientsInCategories.bind(this)}
+                            getAllIngredients={getAllIngredients.bind(this)}
                         />;
-            /* case 3:
+            case 3:
                 return <AddInstructions
                             classes={classes}
-                            addInstruction={addInstruction}
-                            setInstruction={setInstruction}
-                            getInstruction={getInstruction}
-                            getInstructions={getInstructions}
-                            removeInstruction={removeInstruction}
                             templates={instructionTemplates}
-                            getIngredients={getIngredients}
-                        />; */
-            case 3:
+                            instructions={instructions}
+                            setInstructions={setInstructions.bind(this)}
+                            ingredientsInCategories={ingredientsInCategories}
+                            getAllIngredients={getAllIngredients.bind(this)}
+                        />;
+            case 4:
                 return <FinishingPage
                             name={name}
                             description={description}

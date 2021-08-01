@@ -22,8 +22,8 @@ export default function Ingredient(props) {
     }
 
     const handleCategoryChange = (event) => {
-        const ingredientsOldCategory = props.ingredientsInCategories.find((category) => category.name == props.ingredient.category);
-        const ingredientsNewCategory = props.ingredientsInCategories.find((category) => category.name == event.target.value);
+        const ingredientsOldCategory = props.ingredientsInCategories.find((category) => category.name === props.ingredient.category);
+        const ingredientsNewCategory = props.ingredientsInCategories.find((category) => category.name === event.target.value);
         ingredientsOldCategory.ingredients.splice(idx, 1);
         ingredientsNewCategory.ingredients.push(props.ingredient);
         update();

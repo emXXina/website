@@ -5,16 +5,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { GridList, GridListTile, Typography } from '@material-ui/core';
 
 function AddIngredients(props) {
-    var allIngredients = [];
-    props.ingredientsInCategories.forEach((category) => {
-        var ingredientsOfThisCategory = category.ingredients;
-        ingredientsOfThisCategory.forEach((ingredient) => {
-            ingredient.category = category.name;
-        })
-        allIngredients = allIngredients.concat(ingredientsOfThisCategory);
-    })
-
     const addIngredient = () => {
+        const allIngredients = props.getAllIngredients();
         const categoryOfLastIngredientName = allIngredients[allIngredients.length -1].category;
         console.log(categoryOfLastIngredientName);
         const categoryOfLastIngredient = props.ingredientsInCategories.find((category) => category.name === categoryOfLastIngredientName);
@@ -33,7 +25,7 @@ function AddIngredients(props) {
                 keine Menge angeben, dann gibt einfach eine Menge von 0 aus.
             </Typography>
             <GridList cellHeight="auto" cols={1} spacing={0}>
-                {allIngredients.map((ingredient, idx) => (
+                {props.getAllIngredients().map((ingredient, idx) => (
                     <GridListTile key={idx} className={props.classes.tile}>
                         <Ingredient 
                             idx={idx}
