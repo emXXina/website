@@ -5,26 +5,26 @@ import AddIcon from '@material-ui/icons/Add';
 import { GridList, GridListTile, Typography } from '@material-ui/core';
 
 function AddIngredients(props) {
-    const getIngredientTiles = () => {
-        var tiles = [];
-        for (var i = 0; i < props.getIngredients().length; i++) {
-            tiles.push(
-                <GridListTile key={i} className={props.classes.tile}>
-                    <Ingredient 
-                        units={props.units}
-                        idx={i}
-                        setIngredient={props.setIngredient}
-                        getIngredient={props.getIngredient}
-                        getIngredients={props.getIngredients}
-                        classes={props.classes}
-                        getCategories={props.getCategories}
-                        removeIngredient={props.removeIngredient}
-                    />
-                </GridListTile>
-                );
-        }
-        return tiles;
-    };
+    var allIngredients = [];
+    props.ingredientsInCategories.forEach((category) => {
+        var ingredientsOfThisCategory = category.ingredients;
+        ingredientsOfThisCategory.forEach((ingredient) => {
+            ingredient.category = category.name;
+        })
+        allIngredients = allIngredients.concat(ingredientsOfThisCategory);
+    })
+
+    const addIngredient = () => {
+        const categoryOfLastIngredientName = allIngredients[allIngredients.length -1].category;
+        console.log(categoryOfLastIngredientName);
+        const categoryOfLastIngredient = props.ingredientsInCategories.find((category) => category.name === categoryOfLastIngredientName);
+        categoryOfLastIngredient.ingredients.push({
+            name: "", 
+            unit: props.units[0],
+            quantity: 0 
+        })
+        props.setIngredientsInCategories(props.ingredientsInCategories.slice());
+    }
 
     return(
         <form>
@@ -33,9 +33,20 @@ function AddIngredients(props) {
                 keine Menge angeben, dann gibt einfach eine Menge von 0 aus.
             </Typography>
             <GridList cellHeight="auto" cols={1} spacing={0}>
-                {getIngredientTiles()}
+                {allIngredients.map((ingredient, idx) => (
+                    <GridListTile key={idx} className={props.classes.tile}>
+                        <Ingredient 
+                            idx={idx}
+                            classes={props.classes}
+                            units={props.units}
+                            ingredientsInCategories={props.ingredientsInCategories}    
+                            setIngredientsInCategories={props.setIngredientsInCategories}                
+                            ingredient={ingredient}        
+                        />
+                    </GridListTile>
+                ))}
             </GridList>
-            <BasicBigButton icon={<AddIcon/>} action={{onClick: props.addIngredient}} />
+            <BasicBigButton icon={<AddIcon/>} action={{onClick: addIngredient}} />
         </form>
     );
 }

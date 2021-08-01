@@ -9,7 +9,7 @@ import Warning from '../utils/Warning';
 import isValidRecipe from './inputValidation';
 
 export default function RecipeCreator() {
-    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', /*'Zutaten', 'Zubereitung',*/ 'Fertig?' ];
+    const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', 'Zutaten', /*'Zubereitung',*/ 'Fertig?' ];
     const [activeStep, setActiveStep] = useState(0);
 
     const units = ["", "EL", "TL", "ml", "l", "mg", "g", "kg", "Stück", "Tropfen", "Prise(n)", "Pck", "Scheibe(n)", "Tasse(n)", "Pfund"];
@@ -123,18 +123,14 @@ export default function RecipeCreator() {
                             ingredientsInCategories={ingredientsInCategories}
                             setIngredientsInCategories={setIngredientsInCategories.bind(this)}
                         />;
-            /* case 2:
+            case 2:
                 return <AddIngredients
                             classes={classes}
                             units={units}
-                            getCategories={getCategories}
-                            setIngredient={setIngredient}
-                            getIngredient={getIngredient}
-                            getIngredients={getIngredients}
-                            addIngredient={addIngredient}
-                            removeIngredient={removeIngredient}
+                            ingredientsInCategories={ingredientsInCategories}
+                            setIngredientsInCategories={setIngredientsInCategories.bind(this)}
                         />;
-            case 3:
+            /* case 3:
                 return <AddInstructions
                             classes={classes}
                             addInstruction={addInstruction}
@@ -145,7 +141,7 @@ export default function RecipeCreator() {
                             templates={instructionTemplates}
                             getIngredients={getIngredients}
                         />; */
-            case 2:
+            case 3:
                 return <FinishingPage
                             name={name}
                             description={description}

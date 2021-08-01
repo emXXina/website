@@ -14,19 +14,40 @@ export default function Ingredient(props) {
     const idx = props.idx;
     const [isQuantityValid, setIsQuantityValid] = useState(true);
 
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
+    const update = () => props.setIngredientsInCategories(props.ingredientsInCategories.slice());
 
-        if (name === "quantity" && value < 0) {
+    const handleNameChange = (event) => {
+        props.ingredient.name = event.target.value;
+        update();
+    }
+
+    const handleCategoryChange = (event) => {
+        const ingredientsOldCategory = props.ingredientsInCategories.find((category) => category.name == props.ingredient.category);
+        const ingredientsNewCategory = props.ingredientsInCategories.find((category) => category.name == event.target.value);
+        ingredientsOldCategory.ingredients.splice(idx, 1);
+        ingredientsNewCategory.ingredients.push(props.ingredient);
+        update();
+    }
+
+    const handleQuantityChange = (event) => {
+        if (event.target.value < 0) {
             setIsQuantityValid(false);
         } else {
-            props.setIngredient(idx, name, value);
-
-            if (name === "quantity") {
-                setIsQuantityValid(true);
-            }
+            props.ingredient.quantity = event.target.value;
+            update();
+            setIsQuantityValid(true);
         }
+    }
+
+    const handleUnitChange = (event) => {
+        props.ingredient.unit = event.target.value;
+        update();
+    }
+
+    const removeIngredient = () => {
+        const ingredientsCategory = props.ingredientsInCategories.find((category) => category.name === props.ingredient.category);
+        ingredientsCategory.ingredients.splice(idx, 1);
+        update();        
     }
 
     return(
@@ -37,25 +58,23 @@ export default function Ingredient(props) {
                     required
                     variant="outlined"
                     label="Zutatenbezeichnung"
-                    onChange={handleChange}
-                    value={props.getIngredient(idx).name}
+                    onChange={handleNameChange}
+                    value={props.ingredient.name}
                 />
-                { (props.getIngredients().length > 1) &&
-                    <IconButton onClick={event => props.removeIngredient(idx)}>
-                        <HighlightOffIcon/>
-                    </IconButton>
-                }
+                <IconButton onClick={removeIngredient}>
+                    <HighlightOffIcon/>
+                </IconButton>
             </div>
             <TextField
                 name="category_name"
                 select
                 variant="outlined"
                 label="Zutatenkategorie"
-                onChange={handleChange}
-                value={props.getIngredient(idx).category_name}
+                onChange={handleCategoryChange}
+                value={props.ingredient.category}
             >
-                {props.getCategories().map((category, idx) => (
-                    <MenuItem value={category} key={idx}>{category}</MenuItem>
+                {props.ingredientsInCategories.map((category, idx) => (
+                    <MenuItem value={category.name} key={idx}>{category.name}</MenuItem>
                 ))} 
             </TextField><br/>
             <TextField className={classes.numberInput}
@@ -65,16 +84,16 @@ export default function Ingredient(props) {
                 name="quantity"
                 variant="outlined"
                 label="Menge"
-                onChange={handleChange}
-                value={props.getIngredient(idx).quantity}
+                onChange={handleQuantityChange}
+                value={props.ingredient.quantity}
             />
             <TextField
                 name="unit"
                 select
                 variant="outlined"
                 label="Einheit"
-                onChange={handleChange}
-                value={props.getIngredient(idx).unit}
+                onChange={handleUnitChange}
+                value={props.ingredient.unit}
             >
                 {props.units.map((unit, idx) => (
                     <MenuItem value={unit} key={idx}>{unit}</MenuItem>

@@ -9,7 +9,7 @@ function AddIngredients(props) {
     const classes = props.classes;
 
     const addCategory = () => {
-        ingredientsInCategories.push({ name: "" });
+        ingredientsInCategories.push({ name: "", ingredients: [] });
         props.setIngredientsInCategories(ingredientsInCategories.slice());
         console.log(ingredientsInCategories);
     }
