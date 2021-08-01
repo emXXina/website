@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Card, Button, Typography, CardContent, MobileStepper, Divider, makeStyles, useTheme } from '@material-ui/core';
 import AddFundamentals from './AddFundamentals';
 import AddIngredientCategories from './AddIngredientCategories';
@@ -7,6 +8,8 @@ import FinishingPage from './FinishingPage';
 import AddInstructions from './AddInstructions';
 import Warning from '../utils/Warning';
 import isValidRecipe from './inputValidation';
+
+import backend from '../../config/backend';
 
 export default function RecipeCreator() {
     const steps = ['Grundlegende Eigenschaften', 'Zutatenkategorien', 'Zutaten', 'Zubereitung', 'Fertig?' ];
@@ -49,54 +52,31 @@ export default function RecipeCreator() {
         return allIngredients;
     }
 
-    // methos to control instructions
-    /* const getInstruction = (idx) => {return instructions[idx]}
-    const getInstructions = () => {return instructions}
-    const addInstruction = () => {
-        instructions.push(basicInstruction);
-        setInstruction(instructions.slice());
-    }
-    const setInstruction = (idx, attribute, value) => {
-        instructions[idx] = {
-            ...instructions[idx],
-            [attribute]: value
-        };
-        setInstructions(instructions.slice());
+    /**
+     * Insert values for existing recipe
+     */
+    let { id } = useParams();
+    useEffect(() => {
+        if (id !== undefined) {
+            fetch(`${backend}/recipe/${id}`)
+            .then(response => response.json())
+            .then(recipe => {
+                recipe.instructions.forEach((instruction) => {
+                    instruction.template = 0;
+                })
 
-        if (attribute === "state") {
-            switch(instructions[idx].template) {
-                case 0:
-                    instructions[idx] = {
-                        ...instructions[idx],
-                        'text': instructions[idx].state
-                    };
-                    setInstructions(instructions.slice());
-                    break;
-                case 1:
-                    const state = instructions[idx].state;
-                    var text = "Mische "
-                    for (var i = 0; i < state.length - 1; i++) {
-                        text += state[i] + ", ";
-                    }
-                    text += " und " + state[state.length- 1] + ".";
-                    instructions[idx] = {
-                        ...instructions[idx],
-                        'text': text
-                    };
-                    setInstructions(instructions.slice());
-                    break;
-                default:
-                    throw new Error("Invalid template.");
-            }
+                setName(recipe.name);
+                setDescription(recipe.description);
+                setIngredientsInCategories(recipe.ingredientsInCategories);
+                setInstructions(recipe.instructions);
+            })
         }
-    }
+    }, [id])
 
-    const removeInstruction = (idx) => {
-        instructions.splice(idx, 1);
-        setInstructions(instructions.slice());
-    } */
 
-    // methods to control stepper
+    /**
+     * Methods to control stepper 
+     */
     function getContent(step) {
         switch(step) {
             case 0:
@@ -197,21 +177,39 @@ export default function RecipeCreator() {
             delete instruction.state;
         })
 
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                'name': name,
-                'description': description,
-                'ingredientsInCategories': ingredientsInCategories,
-                'instructions': instructions
-            })
-        };
+        if (id === undefined) {
+            const requestOptions = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    'name': name,
+                    'description': description,
+                    'ingredientsInCategories': ingredientsInCategories,
+                    'instructions': instructions
+                })
+            };
 
-        fetch('https://finnupa.de/backend/recipe', requestOptions)
+            fetch(`${backend}/recipe`, requestOptions)
             .then(response => response.json())
             .then(data => window.location = `../rezept/${data.id}` )
             .catch(error => console.log(error))
+        } else {
+            const requestOptions = {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    'name': name,
+                    'description': description,
+                    'ingredientsInCategories': ingredientsInCategories,
+                    'instructions': instructions
+                })
+            }
+
+            fetch(`${backend}/recipe/${id}`, requestOptions)
+            .then(response => response.json())
+            .then(data => window.location = `../rezept/${id}` )
+            .catch(error => console.log(error))
+        }
     };
 
     const theme = useTheme();

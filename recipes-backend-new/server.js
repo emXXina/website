@@ -142,4 +142,22 @@ MongoClient.connect(dbConfig.url, (error, client) => {
             })
             .catch(error => console.log(error))
         })
+        .put((request, response) => {
+            recipes.findOneAndUpdate(
+                { _id: new ObjectId(request.params.id) },
+                {
+                    $set: {
+                        name: request.body.name,
+                        description: request.body.description,
+                        ingredientsInCategories: request.body.ingredientsInCategories,
+                        instructions: request.body.instructions
+                    }
+                }
+            )
+            .then(result => {
+                console.log(result);
+                response.json(result);
+            })
+            .catch(error => console.log(error))
+        })
 })

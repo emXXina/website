@@ -35,6 +35,9 @@ function App() {
           <Route path="/create">
             <RecipeCreator/>
           </Route>
+          <Route path="/edit/:id">
+            <RecipeCreator/>
+          </Route>
           <Route path="/">
             <Redirect to="/"></Redirect>
           </Route>
