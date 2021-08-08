@@ -243,7 +243,7 @@ export default function RecipeCreator() {
     return(
         <Card className="big-card">
             <CardContent>
-                <Typography variant="h2">Neues Rezept</Typography>
+                <Typography variant="h2">{id === undefined ? "Neues Rezept" : "Rezept bearbeiten"}</Typography>
             </CardContent>
 
             <Divider/>
