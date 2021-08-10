@@ -26,6 +26,8 @@ export default function Ingredient(props) {
         const ingredientsNewCategory = props.ingredientsInCategories.find((category) => category.name === event.target.value);
         ingredientsOldCategory.ingredients.splice(idx, 1);
         ingredientsNewCategory.ingredients.push(props.ingredient);
+        props.ingredient.category = ingredientsNewCategory.name;
+        console.log(props.ingredientsInCategories);
         update();
     }
 
@@ -45,8 +47,8 @@ export default function Ingredient(props) {
     }
 
     const removeIngredient = () => {
-        const ingredientsCategory = props.ingredientsInCategories.find((category) => category.name === props.ingredient.category);
-        ingredientsCategory.ingredients.splice(idx, 1);
+        const category = props.ingredientsInCategories.find((category) => category.name === props.ingredient.category);
+        category.ingredients.splice(idx, 1);
         update();        
     }
 

@@ -98,7 +98,6 @@ export default function RecipeCreator() {
                             units={units}
                             ingredientsInCategories={ingredientsInCategories}
                             setIngredientsInCategories={setIngredientsInCategories.bind(this)}
-                            getAllIngredients={getAllIngredients.bind(this)}
                         />;
             case 3:
                 return <AddInstructions

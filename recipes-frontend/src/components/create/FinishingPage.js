@@ -28,7 +28,7 @@ export default function FinishingPage(props) {
                         const ingredientTable = <IngredientTable key={idx} heading={category.name}  ingredients={category.ingredients}/>;
                         if (category.name === "") {
                             return(<Alert key={idx} severity="error">Achtung: Eine Zutatenkategorie hat keinen Namen.</Alert>);
-                        } else if (category.ingredients === undefined || category.ingredients === []) {
+                        } else if (category.ingredients === undefined || category.ingredients.length === 0) {
                             return(<Alert key={idx} severity="error">Achtung: Die Kategorie &bdquo;{category.name}&ldquo; enthält keine Zutaten.</Alert>)
                         } else if (category.ingredients.some((ingredient) => ingredient.name === "")) {
                             return(
