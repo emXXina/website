@@ -71,9 +71,8 @@ MongoClient.connect(dbConfig.url, (error, client) => {
      */
     app.get('/backend/', (request, response) => {
         recipes.find().toArray()
-        .then(result => {
-            response.render('index.ejs', {recipes: result});
-            console.log('Retrieved recipes');
+        .then(_ => {
+            response.render('index.ejs');
         })
         .catch(error => console.log(error))
     })
@@ -94,39 +93,6 @@ MongoClient.connect(dbConfig.url, (error, client) => {
                 console.log(result);
             })
             .catch(error => console.error(error))
-        })
-        .put((request, response) => {
-            recipes.findOneAndUpdate(
-                { name: 'Test' },   // filters the collection with key-value pairs
-                {
-                    $set: {
-                        name: request.body.name,
-                        description: request.body.description
-                    }
-                },
-                {
-                    upsert: true    // insert a document if no documents can be updated
-                }
-            )
-            .then(result => {
-                console.log(result);
-                response.json('Success');
-            })
-            .catch(error => console.log(error))
-        })
-        .delete((request, response) => {
-            recipes.deleteOne(
-                { name: request.body.name },
-            )
-            .then(result => {
-                if (result.deletedCount == 0) {
-                    response.json('No recipe deleted.')
-                } else {
-                    response.json(`Deleted ${request.body.name} recipe.`);
-                }
-                console.log(result);
-            })
-            .catch(error => console.log(error))
         })
 
     app.route('/backend/recipe/:id')
