@@ -22,7 +22,7 @@ const isValidRecipe = (recipe, openWarning) => {
         return false;
     }
 
-    if (recipe.ingredientsInCategories.some((category) => category.ingredients === undefined || category.ingredients === [])) {
+    if (recipe.ingredientsInCategories.some((category) => category.ingredients === undefined || category.ingredients.length === 0)) {
         openWarning({
             errorTitle: "Kategorie ohne Zutaten",
             errorDescription: `Eine deiner Zutatenkategorien hat keine Zutaten. Füge entweder Zutaten hinzu oder lösche die Kategorie.`
