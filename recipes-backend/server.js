@@ -20,8 +20,8 @@ app.set('view engine', 'ejs');
 var https = require('https');
 var fs = require('fs');
 var server = https.createServer({
-    key: fs.readFileSync('/etc/letsencrypt/archive/finnupa.de/privkey6.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/archive/finnupa.de/fullchain6.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/finnupa.de/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/finnupa.de/fullchain.pem')
 }, app);
 
 
